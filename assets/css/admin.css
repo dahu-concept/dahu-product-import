@@ -1,0 +1,117 @@
+/*
+ * ------------------------------------------------------------------------
+ * SHARED ADMIN TOKENS
+ * ------------------------------------------------------------------------
+ *
+ * This block is identical in every Dahu plugin, deliberately. The plugins
+ * are independent — each has to work with none of the others installed — so
+ * they cannot share a stylesheet, and the only way for their screens to
+ * look like one family is for each to declare the same tokens under the
+ * same names. A shop running three of them sees one interface rather than
+ * three.
+ *
+ * Values follow WordPress's own admin palette rather than inventing a
+ * brand: a plugin screen that ignores the admin it lives in reads as a
+ * foreign object, however well designed it is on its own.
+ *
+ * The `--dahu-admin-` prefix is what makes a declaration on :root safe
+ * here. Two plugins declaring it write the same values, so neither can
+ * surprise the other, and nothing outside the family can collide with it.
+ *
+ * Single source of truth: /Dev/dahu-public/UI-ADMIN-DAHU.md
+ */
+
+:root {
+	/* Surfaces */
+	--dahu-admin-surface: #fff;
+	--dahu-admin-surface-sunken: #f6f7f7;
+	--dahu-admin-border: #dcdcde;
+	--dahu-admin-border-strong: #c3c4c7;
+
+	/* Text */
+	--dahu-admin-text: #1d2327;
+	--dahu-admin-text-muted: #646970;
+
+	/* Intent */
+	--dahu-admin-accent: #2271b1;
+	--dahu-admin-accent-text: #fff;
+	--dahu-admin-success: #008a20;
+	--dahu-admin-warning: #b32d2e;
+	--dahu-admin-caution: #996800;
+	--dahu-admin-neutral: #50575e;
+
+	/* Shape */
+	--dahu-admin-radius: 4px;
+	--dahu-admin-radius-lg: 6px;
+	--dahu-admin-shadow: 0 1px 2px rgba( 0, 0, 0, .06 );
+	--dahu-admin-shadow-lg: 0 6px 20px rgba( 0, 0, 0, .16 );
+
+	/* Rhythm */
+	--dahu-admin-gap: 8px;
+	--dahu-admin-gap-lg: 14px;
+
+	/* Reading widths */
+	--dahu-admin-measure: 900px;
+	--dahu-admin-measure-wide: 1100px;
+
+	/* Motion. Short, and switched off below for anybody who asked. */
+	--dahu-admin-transition: .15s ease;
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+
+	:root {
+		--dahu-admin-transition: 0s;
+	}
+}
+
+/* ------------------------------------------------------------------------
+ * The information screen
+ * ------------------------------------------------------------------------ */
+
+.dahu-product-import__intro {
+	max-width: var( --dahu-admin-measure );
+}
+
+/*
+ * The command list.
+ *
+ * Each step is a sentence and the command under it. Giving the command room
+ * of its own, in a sunken block, is what makes it copyable at a glance rather
+ * than a run of monospace inside a paragraph.
+ */
+.dahu-pi-steps {
+	max-width: var( --dahu-admin-measure );
+}
+
+.dahu-pi-steps li {
+	margin-bottom: var( --dahu-admin-gap-lg );
+}
+
+.dahu-pi-steps code {
+	display: inline-block;
+	margin-top: 4px;
+	padding: 4px var( --dahu-admin-gap );
+	background: var( --dahu-admin-surface-sunken );
+	border: 1px solid var( --dahu-admin-border );
+	border-radius: var( --dahu-admin-radius );
+}
+
+/*
+ * The columns table.
+ *
+ * This is the only accurate statement of what THIS site's file will hold, so
+ * it is the part of the screen somebody actually came for.
+ */
+.dahu-pi-columns {
+	max-width: var( --dahu-admin-measure-wide );
+}
+
+.dahu-pi-columns code {
+	font-variant-numeric: tabular-nums;
+}
+
+.dahu-pi-note {
+	max-width: var( --dahu-admin-measure );
+	color: var( --dahu-admin-text-muted );
+}

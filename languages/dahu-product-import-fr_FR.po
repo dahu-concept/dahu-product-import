@@ -1,0 +1,590 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: dahu-product-import\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"PO-Revision-Date: 2026-10-08 11:25+0000\n"
+"X-Generator: dahu i18n-build\n"
+
+#. translators: 1: line number, 2: product id, 3: slug, 4: the reasons. */
+#: includes/class-dahu-product-import-report.php:159
+msgid "  line %1$d — #%2$s \"%3$s\": %4$s"
+msgstr "  ligne %1$d — n° %2$s « %3$s » : %4$s"
+
+#. translators: 1: cells found, 2: cells expected. */
+#: includes/class-dahu-product-import-csv.php:149
+msgid "%1$d cell(s) instead of %2$d (an unclosed quote, or a separator inside an unquoted cell?)"
+msgstr "%1$d cellule(s) au lieu de %2$d (un guillemet non fermé, ou un séparateur dans une cellule non protégée ?)"
+
+#. translators: 1: how many products, 2: the kind of attribute. */
+#: includes/class-dahu-product-import-cli.php:415
+msgid "%1$d product(s) carry %2$s: not in the file, and never written by an import."
+msgstr "%1$d produit(s) portent %2$s : absents du fichier, et jamais écrits par un import."
+
+#. translators: 1: products updated, 2: warnings, 3: errors. */
+#: includes/class-dahu-product-import-cli.php:130
+msgid "%1$d product(s) updated, %2$d warning(s), %3$d error(s). Read the log."
+msgstr "%1$d produit(s) mis à jour, %2$d avertissement(s), %3$d erreur(s). Lisez le journal."
+
+#. translators: 1: products updated, 2: warnings. */
+#: includes/class-dahu-product-import-cli.php:142
+msgid "%1$d product(s) updated, %2$d warning(s)."
+msgstr "%1$d produit(s) mis à jour, %2$d avertissement(s)."
+
+#. translators: 1: fields restored, 2: fields left alone, 3: errors. */
+#: includes/class-dahu-product-import-cli.php:196
+msgid "%1$d restored, %2$d left alone, %3$d error(s)."
+msgstr "%1$d restaurés, %2$d laissés tels quels, %3$d erreur(s)."
+
+#. translators: 1: dry-run prefix, 2: product label, 3: field name. */
+#. translators: 1: dry-run prefix, 2: product label, 3: meta key. */
+#: includes/class-dahu-product-import-rollback.php:149 includes/class-dahu-product-import-rollback.php:175
+msgid "%1$s%2$s: %3$s has changed since the import, not restored (--force to overwrite)"
+msgstr "%1$s%2$s : %3$s a changé depuis l’import, non restauré (--force pour écraser)"
+
+#. translators: 1: dry-run prefix, 2: product label. */
+#: includes/class-dahu-product-import-rollback.php:287
+msgid "%1$s%2$s: the SKU has changed since the import, not restored (--force to overwrite)"
+msgstr "%1$s%2$s : l’UGS a changé depuis l’import, non restaurée (--force pour écraser)"
+
+#. translators: 1: dry-run prefix, 2: product label. */
+#: includes/class-dahu-product-import-rollback.php:352
+msgid "%1$s%2$s: the attributes have changed since the import, not restored (--force to overwrite)"
+msgstr "%1$s%2$s : les attributs ont changé depuis l’import, non restaurés (--force pour écraser)"
+
+#. translators: 1: dry-run prefix, 2: product label, 3: the product id now holding it. */
+#: includes/class-dahu-product-import-rollback.php:305
+msgid "%1$s%2$s: the pre-import SKU is now held by #%3$d, not restored"
+msgstr "%1$s%2$s : l’UGS d’avant l’import est maintenant portée par le n° %3$d, non restaurée"
+
+#. translators: 1: column name, 2: attribute name, 3: why it is protected. */
+#: includes/class-dahu-product-import-attributes.php:226
+msgid "%1$s: \"%2$s\" is a %3$s — line ignored, the existing attribute is left untouched."
+msgstr "%1$s : « %2$s » est un %3$s — ligne ignorée, l’attribut existant est laissé intact."
+
+#. translators: 1: column name, 2: the cell contents. */
+#: includes/class-dahu-product-import-planner.php:314
+msgid "%1$s: \"%2$s\" is not a product on this site; the field is left unchanged"
+msgstr "%1$s : « %2$s » n’est pas un produit de ce site ; le champ est laissé inchangé"
+
+#. translators: 1: column name, 2: attribute name. */
+#: includes/class-dahu-product-import-attributes.php:244
+msgid "%1$s: \"%2$s\" names the same attribute as an earlier line; only the first is kept."
+msgstr "%1$s : « %2$s » désigne le même attribut qu’une ligne précédente ; seule la première est conservée."
+
+#. translators: 1: column name, 2: length found, 3: maximum allowed. */
+#: includes/class-dahu-product-import-planner.php:284
+msgid "%1$s: %2$d characters, maximum %3$d (never truncated)"
+msgstr "%1$s : %2$d caractères, maximum %3$d (jamais tronqué)"
+
+#. translators: 1: column name, 2: what the cleaning changes. */
+#: includes/class-dahu-product-import-planner.php:363
+msgid "%1$s: cleaning on write changes the file's value (%2$s)"
+msgstr "%1$s : le nettoyage à l’écriture change la valeur du fichier (%2$s)"
+
+#. translators: 1: column name, 2: the cell contents. */
+#: includes/class-dahu-product-import-planner.php:274
+msgid "%1$s: invalid URL \"%2$s\""
+msgstr "%1$s : URL invalide « %2$s »"
+
+#. translators: 1: column name, 2: the line as typed. */
+#: includes/class-dahu-product-import-attributes.php:208
+msgid "%1$s: line without a \":\" ignored — \"%2$s\""
+msgstr "%1$s : ligne sans « : » ignorée — « %2$s »"
+
+#. translators: %s: column name. */
+#: includes/class-dahu-product-import-planner.php:295
+msgid "%s is empty, and that field cannot be cleared"
+msgstr "%s est vide, et ce champ ne peut pas être effacé"
+
+#. translators: %s: column name. */
+#: includes/class-dahu-product-import-planner.php:505
+msgid "%s: WooCommerce cannot read this product, so this column is ignored"
+msgstr "%s : WooCommerce ne peut pas lire ce produit, cette colonne est donc ignorée"
+
+#. translators: %s: column name. */
+#: includes/class-dahu-product-import-planner.php:492
+msgid "%s: WooCommerce is not active, so this column is ignored"
+msgstr "%s : WooCommerce n’est pas actif, cette colonne est donc ignorée"
+
+#: includes/class-dahu-product-import-csv.php:246
+msgid "(unreadable)"
+msgstr "(illisible)"
+
+#: includes/class-dahu-product-import-report.php:58
+msgid "+ added   ~ changed   - CLEARED (the cell is empty in the file)"
+msgstr "+ ajouté   ~ modifié   - EFFACÉ (la cellule est vide dans le fichier)"
+
+#. translators: 1: product id, 2: slug, 3: line number, 4: additions, 5: changes, 6: erasures. */
+#: includes/class-dahu-product-import-report.php:101
+msgid "--- Product #%1$s \"%2$s\" (line %3$d): %4$d added, %5$d changed, %6$d cleared"
+msgstr "--- Produit n° %1$s « %2$s » (ligne %3$d) : %4$d ajoutés, %5$d modifiés, %6$d effacés"
+
+#. translators: 1: rows, 2: products to update, 3: identical, 4: rejected, 5: field erasures. */
+#: includes/class-dahu-product-import-report.php:177
+msgid "=== Summary: %1$d row(s); %2$d product(s) to update; %3$d identical; %4$d rejected; %5$d field erasure(s)"
+msgstr "=== Résumé : %1$d ligne(s) ; %2$d produit(s) à mettre à jour ; %3$d identiques ; %4$d rejetées ; %5$d effacement(s) de champ"
+
+#: includes/class-dahu-product-import-workspace.php:278
+msgid "An import or a rollback is already running (import.lock)."
+msgstr "Un import ou une restauration est déjà en cours (import.lock)."
+
+#: includes/class-dahu-product-import-cli.php:120
+msgid "Backup: %s"
+msgstr "Sauvegarde : %s"
+
+#: includes/class-dahu-product-import-report.php:118
+msgid "CLEARED"
+msgstr "EFFACÉ"
+
+#: includes/class-dahu-product-import-workspace.php:55
+msgid "Cannot create the working directory: %s"
+msgstr "Impossible de créer le répertoire de travail : %s"
+
+#: includes/class-dahu-product-import-workspace.php:255
+msgid "Cannot open: %s"
+msgstr "Impossible d’ouvrir : %s"
+
+#: includes/class-dahu-product-import-csv.php:47 includes/class-dahu-product-import-rollback.php:81
+msgid "Cannot read: %s"
+msgstr "Impossible de lire : %s"
+
+#: includes/class-dahu-product-import-workspace.php:159
+msgid "Cannot write: %s"
+msgstr "Impossible d’écrire : %s"
+
+#: includes/class-dahu-product-import-admin.php:126
+msgid "Column"
+msgstr "Colonne"
+
+#. translators: 1: comma-separated column names, 2: the detected separator. */
+#: includes/class-dahu-product-import-csv.php:116
+msgid "Columns missing from the header: %1$s (separator detected: \"%2$s\")."
+msgstr "Colonnes absentes de l’en-tête : %1$s (séparateur détecté : « %2$s »)."
+
+#: includes/class-dahu-product-import-cli.php:352
+msgid "Command loaded."
+msgstr "Commande chargée."
+
+#. translators: %s: file name pattern. */
+#: includes/class-dahu-product-import-workspace.php:235
+msgid "Could not reserve a file name for %s in the working directory."
+msgstr "Impossible de réserver un nom de fichier pour %s dans le répertoire de travail."
+
+#: includes/class-dahu-product-import-admin.php:93
+msgid "Dahu Product Import lets you edit your product text in a spreadsheet and import it back. Everything runs from WP-CLI: an import writes to hundreds of products at once, so it needs a dry run you can read, a report you can keep, and no browser timing out halfway through."
+msgstr "Dahu Product Import vous permet de modifier le texte de vos produits dans un tableur et de le réimporter. Tout passe par WP-CLI : un import écrit dans des centaines de produits d’un coup, il lui faut donc une simulation lisible, un rapport qu’on garde, et aucun navigateur qui expire à mi-chemin."
+
+#: includes/class-dahu-product-import-cli.php:203
+msgid "Dry run finished. Nothing was written."
+msgstr "Simulation terminée. Rien n’a été écrit."
+
+#: includes/class-dahu-product-import-cli.php:107
+msgid "Dry run finished. Nothing was written. Add --execute to apply it."
+msgstr "Simulation terminée. Rien n’a été écrit. Ajoutez --execute pour l’appliquer."
+
+#: includes/class-dahu-product-import-admin.php:79
+msgid "Dry run: the report, and not one write."
+msgstr "Simulation : le rapport, et pas une écriture."
+
+#. translators: %s: comma-separated column names. */
+#: includes/class-dahu-product-import-csv.php:129
+msgid "Duplicate columns in the header: %s"
+msgstr "Colonnes en double dans l’en-tête : %s"
+
+#: includes/class-dahu-product-import-report.php:133
+msgid "Erasures by column (a column emptied by mistake shows up here)"
+msgstr "Effacements par colonne (une colonne vidée par erreur apparaît ici)"
+
+#. translators: %s: comma-separated product type slugs, or "none". */
+#: includes/class-dahu-product-import-cli.php:338
+msgid "Excluded product types: %s"
+msgstr "Types de produit exclus : %s"
+
+#: includes/class-dahu-product-import-cli.php:58
+msgid "Export finished. Nothing was written to the database."
+msgstr "Export terminé. Rien n’a été écrit en base."
+
+#: includes/class-dahu-product-import-report.php:48
+msgid "File"
+msgstr "Fichier"
+
+#: includes/class-dahu-product-import-workspace.php:186
+msgid "File not found: %s"
+msgstr "Fichier introuvable : %s"
+
+#: includes/class-dahu-product-import-cli.php:54
+msgid "File: %s"
+msgstr "Fichier : %s"
+
+#: includes/class-dahu-product-import-admin.php:82
+msgid "Find out why a field keeps being rewritten."
+msgstr "Comprendre pourquoi un champ est réécrit sans cesse."
+
+#: includes/class-dahu-product-import-sanitize.php:298
+msgid "HTML normalised"
+msgstr "HTML normalisé"
+
+#: dahu-product-import.php:100
+msgid "How to use"
+msgstr "Mode d’emploi"
+
+#. translators: %d: how many rows. */
+#: includes/class-dahu-product-import-report.php:170
+msgid "Identical, nothing written: %d"
+msgstr "Identiques, rien écrit : %d"
+
+#: includes/class-dahu-product-import-admin.php:80
+msgid "Import, once the report says what you expected."
+msgstr "Import, une fois que le rapport dit ce que vous attendiez."
+
+#: includes/class-dahu-product-import-report.php:57
+msgid "Key"
+msgstr "Clé"
+
+#. translators: %d: spreadsheet line number. */
+#: includes/class-dahu-product-import-csv.php:79
+msgid "Line %d: the text is not UTF-8. Save the spreadsheet as \"CSV UTF-8\", not as plain \"CSV\"."
+msgstr "Ligne %d : le texte n’est pas en UTF-8. Enregistrez le tableur en « CSV UTF-8 », pas en « CSV » simple."
+
+#: includes/class-dahu-product-import-cli.php:122
+msgid "Log: %s"
+msgstr "Journal : %s"
+
+#: includes/class-dahu-product-import-workspace.php:179
+msgid "No file name given."
+msgstr "Aucun nom de fichier fourni."
+
+#: includes/class-dahu-product-import-cli.php:260
+msgid "No usable product id in --ids."
+msgstr "Aucun identifiant de produit exploitable dans --ids."
+
+#: includes/class-dahu-product-import-admin.php:128
+msgid "Notes"
+msgstr "Notes"
+
+#: includes/class-dahu-product-import-cli.php:112
+msgid "Nothing to write: every row is identical or rejected."
+msgstr "Rien à écrire : toutes les lignes sont identiques ou rejetées."
+
+#: includes/class-dahu-product-import-cli.php:269
+msgid "Nothing was written."
+msgstr "Rien n’a été écrit."
+
+#. translators: %s: the filter name, in code tags. */
+#: includes/class-dahu-product-import-admin.php:188
+msgid "Only the three built-in fields are declared. To carry your theme's own product fields, add them with the %s filter — the plugin's README has an example."
+msgstr "Seuls les trois champs intégrés sont déclarés. Pour emporter les champs produit de votre thème, ajoutez-les avec le filtre %s — le README de l’extension en donne un exemple."
+
+#: includes/class-dahu-product-import-cli.php:91 includes/class-dahu-product-import-cli.php:183
+msgid "Pass --file=<path>."
+msgstr "Passez --file=<chemin>."
+
+#: includes/class-dahu-product-import-cli.php:250
+msgid "Pass --ids=<comma-separated product ids>."
+msgstr "Passez --ids=<identifiants de produits séparés par des virgules>."
+
+#: includes/class-dahu-product-import-report.php:62
+msgid "Previews"
+msgstr "Aperçus"
+
+#: includes/class-dahu-product-import-admin.php:198
+msgid "Prices, stock, weights, dimensions, categories, tags, variations, global attributes, orders and customers. It never creates or deletes a product either: a row naming an id this site does not have is reported and skipped."
+msgstr "Les prix, le stock, les poids, les dimensions, les catégories, les étiquettes, les variations, les attributs globaux, les commandes et les clients. Il ne crée ni ne supprime jamais de produit non plus : une ligne désignant un identifiant que ce site n’a pas est signalée et sautée."
+
+#: includes/class-dahu-product-import-admin.php:57 includes/class-dahu-product-import-admin.php:58
+msgid "Product Import"
+msgstr "Import de produits"
+
+#: includes/class-dahu-product-import-admin.php:90
+msgid "Product import"
+msgstr "Import de produits"
+
+#: includes/class-dahu-product-import-report.php:45
+msgid "Product text import — DRY RUN (nothing is written)"
+msgstr "Import du texte des produits — SIMULATION (rien n’est écrit)"
+
+#: includes/class-dahu-product-import-report.php:44
+msgid "Product text import — REAL IMPORT"
+msgstr "Import du texte des produits — IMPORT RÉEL"
+
+#: includes/class-dahu-product-import-cli.php:52
+msgid "Products written: %d"
+msgstr "Produits écrits : %d"
+
+#: includes/class-dahu-product-import-admin.php:81
+msgid "Put it back."
+msgstr "Revenir en arrière."
+
+#: includes/class-dahu-product-import-report.php:150
+msgid "Rejected rows (nothing at all is written for these)"
+msgstr "Lignes rejetées (rien du tout n’est écrit pour celles-ci)"
+
+#: includes/class-dahu-product-import-cli.php:104
+msgid "Report: %s"
+msgstr "Rapport : %s"
+
+#: includes/class-dahu-product-import-cli.php:124
+msgid "Roll back with: wp product-import rollback --file=%s"
+msgstr "Revenir en arrière avec : wp product-import rollback --file=%s"
+
+#: includes/class-dahu-product-import-admin.php:77
+msgid "See which columns this site reads and writes."
+msgstr "Voir quelles colonnes ce site lit et écrit."
+
+#: includes/class-dahu-product-import-report.php:52
+msgid "Separator"
+msgstr "Séparateur"
+
+#: includes/class-dahu-product-import-report.php:47
+msgid "Site"
+msgstr "Site"
+
+#: dahu-product-import.php:118
+msgid "Support"
+msgstr "Assistance"
+
+#: includes/class-dahu-product-import-workspace.php:43
+msgid "The HOME variable is not set: pass --dir=<absolute path>."
+msgstr "La variable HOME n’est pas définie : passez --dir=<chemin absolu>."
+
+#: includes/class-dahu-product-import-admin.php:117
+msgid "The columns of your file"
+msgstr "Les colonnes de votre fichier"
+
+#: includes/class-dahu-product-import-csv.php:106
+msgid "The file is empty: %s"
+msgstr "Le fichier est vide : %s"
+
+#: includes/class-dahu-product-import-admin.php:106
+msgid "The sequence"
+msgstr "La marche à suivre"
+
+#. translators: %s: the web root that contains it. */
+#: includes/class-dahu-product-import-workspace.php:70
+msgid "The working directory is inside a web root (%s): choose one outside it. The backups hold your product text."
+msgstr "Le répertoire de travail est à l’intérieur d’une racine web (%s) : choisissez-en un en dehors. Les sauvegardes contiennent le texte de vos produits."
+
+#: includes/class-dahu-product-import-workspace.php:62
+msgid "The working directory is not writable: %s"
+msgstr "Le répertoire de travail n’est pas inscriptible : %s"
+
+#: includes/class-dahu-product-import-workspace.php:50
+msgid "The working directory must be an absolute path with no \"..\"."
+msgstr "Le répertoire de travail doit être un chemin absolu sans « .. »."
+
+#: includes/class-dahu-product-import-admin.php:120
+msgid "These depend on what your theme or plugins have declared, so this list is the only accurate one for this site."
+msgstr "Elles dépendent de ce que votre thème ou vos extensions ont déclaré : cette liste est donc la seule exacte pour ce site."
+
+#. translators: %s: site URL. */
+#: includes/class-dahu-product-import-admin.php:100
+msgid "This site: %s"
+msgstr "Ce site : %s"
+
+#: includes/class-dahu-product-import-report.php:67
+msgid "Unrecognised columns (their contents are NOT imported)"
+msgstr "Colonnes non reconnues (leur contenu n’est PAS importé)"
+
+#: includes/class-dahu-product-import-admin.php:195
+msgid "What an import never touches"
+msgstr "Ce qu’un import ne touche jamais"
+
+#: includes/class-dahu-product-import-rollback.php:277
+msgid "WooCommerce cannot read it, SKU not restored"
+msgstr "WooCommerce ne peut pas le lire, UGS non restaurée"
+
+#: includes/class-dahu-product-import-rollback.php:341
+msgid "WooCommerce cannot read it, attributes not restored"
+msgstr "WooCommerce ne peut pas le lire, attributs non restaurés"
+
+#: includes/class-dahu-product-import-cli.php:291
+msgid "WooCommerce is not active, so the attributes column will be ignored."
+msgstr "WooCommerce n’est pas actif : la colonne des attributs sera ignorée."
+
+#: includes/class-dahu-product-import-cli.php:346 includes/class-dahu-product-import-cli.php:349
+msgid "Working directory: %s"
+msgstr "Répertoire de travail : %s"
+
+#: includes/class-dahu-product-import-admin.php:78
+msgid "Write the spreadsheet from the site."
+msgstr "Écrire le tableur depuis le site."
+
+#: includes/class-dahu-product-import-admin.php:127
+msgid "Writes"
+msgstr "Écrit"
+
+#: includes/class-dahu-product-import-admin.php:73
+msgid "You do not have permission to view this page."
+msgstr "Vous n’avez pas l’autorisation de voir cette page."
+
+#: includes/class-dahu-product-import-admin.php:170
+msgid "an empty cell never clears a SKU"
+msgstr "une cellule vide n’efface jamais une UGS"
+
+#: includes/class-dahu-product-import-admin.php:160
+msgid "at most %d characters"
+msgstr "%d caractères au plus"
+
+#. translators: 1: HTML attribute name, 2: how many were removed. */
+#: includes/class-dahu-product-import-sanitize.php:287
+msgid "attribute %1$s removed x%2$d"
+msgstr "attribut %1$s retiré x%2$d"
+
+#: includes/class-dahu-product-import-attributes.php:197
+msgid "attribute used for variations"
+msgstr "attribut utilisé pour les variations"
+
+#: includes/class-dahu-product-import-cli.php:400
+msgid "attributes used for variations"
+msgstr "attributs utilisés pour les variations"
+
+#: includes/class-dahu-product-import-cli.php:315
+msgid "confirms the id"
+msgstr "confirme l’identifiant"
+
+#: includes/class-dahu-product-import-admin.php:168
+msgid "confirms the id still means that product"
+msgstr "confirme que l’identifiant désigne toujours ce produit"
+
+#: includes/class-dahu-product-import-rollback.php:73
+msgid "dry run"
+msgstr "simulation"
+
+#: includes/class-dahu-product-import-cli.php:317 includes/class-dahu-product-import-cli.php:318
+msgid "for information"
+msgstr "pour information"
+
+#: includes/class-dahu-product-import-admin.php:174
+msgid "for information, never written"
+msgstr "pour information, jamais écrit"
+
+#: includes/class-dahu-product-import-attributes.php:195
+msgid "global attribute (taxonomy %s)"
+msgstr "attribut global (taxonomie %s)"
+
+#: includes/class-dahu-product-import-cli.php:399
+msgid "global attributes (pa_*)"
+msgstr "attributs globaux (pa_*)"
+
+#: includes/class-dahu-product-import-attributes.php:199
+msgid "hidden local attribute"
+msgstr "attribut local masqué"
+
+#: includes/class-dahu-product-import-cli.php:401
+msgid "hidden local attributes"
+msgstr "attributs locaux masqués"
+
+#. translators: %s: the cell contents. */
+#: includes/class-dahu-product-import-planner.php:179
+msgid "invalid product id \"%s\""
+msgstr "identifiant de produit invalide « %s »"
+
+#: includes/class-dahu-product-import-admin.php:142 includes/class-dahu-product-import-cli.php:319
+msgid "local attributes"
+msgstr "attributs locaux"
+
+#: includes/class-dahu-product-import-cli.php:314
+msgid "matches the product"
+msgstr "rattache au produit"
+
+#: includes/class-dahu-product-import-admin.php:166
+msgid "matches the row to a product"
+msgstr "rattache la ligne à un produit"
+
+#: includes/class-dahu-product-import-cli.php:316
+msgid "never cleared by an empty cell"
+msgstr "jamais effacé par une cellule vide"
+
+#: includes/class-dahu-product-import-cli.php:317 includes/class-dahu-product-import-cli.php:318
+msgid "never written"
+msgstr "jamais écrit"
+
+#: includes/class-dahu-product-import-planner.php:189
+msgid "no such product on this site (this plugin never creates one)"
+msgstr "aucun produit de ce genre sur ce site (cette extension n’en crée jamais)"
+
+#: includes/class-dahu-product-import-cli.php:339 includes/class-dahu-product-import-report.php:136 includes/class-dahu-product-import-report.php:153
+msgid "none"
+msgstr "aucune"
+
+#: includes/class-dahu-product-import-report.php:70
+msgid "none — every column in the header matches a declared field"
+msgstr "aucune — chaque colonne de l’en-tête correspond à un champ déclaré"
+
+#: includes/class-dahu-product-import-rollback.php:132
+msgid "not found"
+msgstr "introuvable"
+
+#: includes/class-dahu-product-import-admin.php:144
+msgid "nothing"
+msgstr "rien"
+
+#: includes/class-dahu-product-import-report.php:144
+msgid "product"
+msgid_plural "products"
+msgstr[0] "produit"
+msgstr[1] "produits"
+
+#. translators: %s: product type slug. */
+#: includes/class-dahu-product-import-planner.php:221
+msgid "products of type \"%s\" are excluded on this site, so this row is left to whatever manages them"
+msgstr "les produits de type « %s » sont exclus sur ce site : cette ligne est laissée à ce qui les gère"
+
+#: includes/class-dahu-product-import-admin.php:155
+msgid "required"
+msgstr "obligatoire"
+
+#. translators: 1: SKU, 2: product id holding it, 3: that product's slug. */
+#: includes/class-dahu-product-import-planner.php:447
+msgid "sku: \"%1$s\" is already held by #%2$d \"%3$s\" on this site — row refused, nothing is written for this product"
+msgstr "sku : « %1$s » est déjà porté par le n° %2$d « %3$s » sur ce site — ligne refusée, rien n’est écrit pour ce produit"
+
+#. translators: %s: the SKU on the site. */
+#: includes/class-dahu-product-import-planner.php:427
+msgid "sku: the cell is empty, so the site's SKU \"%s\" is KEPT (an empty cell never clears a SKU)"
+msgstr "sku : la cellule est vide, l’UGS « %s » du site est donc CONSERVÉE (une cellule vide n’efface jamais une UGS)"
+
+#: includes/class-dahu-product-import-report.php:53
+msgid "tab"
+msgstr "tabulation"
+
+#: includes/class-dahu-product-import-sanitize.php:295
+msgid "text changed"
+msgstr "texte modifié"
+
+#. translators: %s: post type. */
+#: includes/class-dahu-product-import-planner.php:196
+msgid "that id belongs to a \"%s\", not to a product"
+msgstr "cet identifiant appartient à un « %s », pas à un produit"
+
+#. translators: %s: post status. */
+#: includes/class-dahu-product-import-planner.php:205
+msgid "the product is in \"%s\" status"
+msgstr "le produit est au statut « %s »"
+
+#. translators: 1: slug on the site, 2: slug in the file. */
+#: includes/class-dahu-product-import-planner.php:239
+msgid "the site's slug \"%1$s\" differs from the file's \"%2$s\": the id may no longer mean the same product"
+msgstr "le slug du site « %1$s » diffère de celui du fichier « %2$s » : l’identifiant ne désigne peut-être plus le même produit"
+
+#. translators: %s: comma-separated line numbers. */
+#: includes/class-dahu-product-import-planner.php:69
+msgid "this product id appears on several lines (%s)"
+msgstr "cet identifiant de produit apparaît sur plusieurs lignes (%s)"
+
+#: includes/class-dahu-product-import-admin.php:172
+msgid "visible, non-variation attributes only"
+msgstr "attributs visibles et hors variation uniquement"
+
+#: includes/class-dahu-product-import-cli.php:319
+msgid "visible, non-variation only"
+msgstr "visibles et hors variation uniquement"
+
+#: includes/class-dahu-product-import-report.php:63
+msgid "⏎ line break   ␣ non-breaking space   · invisible character   → tab"
+msgstr "⏎ saut de ligne   ␣ espace insécable   · caractère invisible   → tabulation"
+
