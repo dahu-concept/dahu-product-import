@@ -123,3 +123,94 @@ add_filter(
 	10,
 	2
 );
+
+/*
+ * The welcome screen, shown once just after activation.
+ *
+ * Registered here rather than inside the admin include, because the
+ * activation flag has to be set whatever else is loaded.
+ */
+require_once DAHU_PRODUCT_IMPORT_PATH . 'includes/dahu-welcome.php';
+
+/*
+ * The flag, not a redirect: an activation hook that redirects breaks bulk
+ * activation and WP-CLI, which activate several plugins in one request. The
+ * welcome screen reads the flag on the next page load, where a redirect is
+ * safe, and clears it when several plugins were activated together.
+ */
+register_activation_hook(
+	__FILE__,
+	static function () {
+		Dahu_Welcome::mark_activated( 'dahu-product-import' );
+	}
+);
+
+add_action(
+	'init',
+	static function () {
+		Dahu_Welcome::register(
+			array(
+				'slug'       => 'dahu-product-import',
+				'name'       => __( 'Product import', 'dahu-product-import' ),
+				'tagline'    => __( 'Brings products in from a file, and says what it changed.', 'dahu-product-import' ),
+				'file'       => DAHU_PRODUCT_IMPORT_FILE,
+				'version'    => DAHU_PRODUCT_IMPORT_VERSION,
+				'textdomain' => 'dahu-product-import',
+				/*
+				 * Les mots de l'accueil viennent d'ici : le fichier partagé est
+				 * recopié dans toute la famille et ne peut donc porter aucun
+				 * domaine de traduction.
+				 */
+				'strings'    => array(
+					'next'   => __( 'Next', 'dahu-product-import' ),
+					'done'   => __( 'Done', 'dahu-product-import' ),
+					'skip'   => __( 'Skip', 'dahu-product-import' ),
+					'of'     => __( 'of', 'dahu-product-import' ),
+					'denied' => __( 'You are not allowed to view this page.', 'dahu-product-import' ),
+				),
+				'points'     => array(
+				array(
+					'title' => __( 'Dry run first', 'dahu-product-import' ),
+					'text'  => __( 'See what would happen before anything is written.', 'dahu-product-import' ),
+				),
+				array(
+					'title' => __( 'Line by line', 'dahu-product-import' ),
+					'text'  => __( 'Each row reports created, updated or skipped, with a reason.', 'dahu-product-import' ),
+				),
+				array(
+					'title' => __( 'Stops on nonsense', 'dahu-product-import' ),
+					'text'  => __( 'A malformed file is refused, not half-imported.', 'dahu-product-import' ),
+				),
+				),
+
+				/*
+				 * The one-time tour.
+				 *
+				 * Every selector below points at something the Tools screen
+				 * always renders, whatever the site holds: the page title, the
+				 * ordered list of commands (a fixed array) and the columns
+				 * table (its head is static). A step whose target is missing
+				 * is skipped without a sound, so nothing here depends on data.
+				 */
+				'tour_screen' => 'tools_page_dahu-product-import',
+				'tour'        => array(
+					array(
+						'selector' => '.dahu-ui-head__title',
+						'title'    => __( 'Runs from WP-CLI', 'dahu-product-import' ),
+						'text'     => __( 'This screen explains; the work is done from the command line.', 'dahu-product-import' ),
+					),
+					array(
+						'selector' => '.dahu-pi-steps',
+						'title'    => __( 'The sequence', 'dahu-product-import' ),
+						'text'     => __( 'Export, dry run, import. Start with the dry run.', 'dahu-product-import' ),
+					),
+					array(
+						'selector' => '.dahu-pi-columns',
+						'title'    => __( 'Your file\'s columns', 'dahu-product-import' ),
+						'text'     => __( 'The columns this site reads and writes.', 'dahu-product-import' ),
+					),
+				),
+			)
+		);
+	}
+);

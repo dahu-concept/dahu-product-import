@@ -69,7 +69,12 @@
  * The information screen
  * ------------------------------------------------------------------------ */
 
-.dahu-product-import__intro {
+/*
+ * A paragraph that is the whole content of a card, not a page introduction.
+ * It carried the `__intro` name for a while and was counted as one by a
+ * measurement of the family's introductions; the name now says what it is.
+ */
+.dahu-product-import__note {
 	max-width: var( --dahu-admin-measure );
 }
 

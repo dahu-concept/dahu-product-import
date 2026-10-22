@@ -39,10 +39,23 @@ final class Dahu_Product_Import_Admin {
 			return;
 		}
 
+		// The family sheet first, and its own second: the plugin's own rules
+		// are written to sit on top of the shared components, so the order is
+		// a dependency and not a hope. One handle across the family -- the
+		// file is byte-identical everywhere, so whichever plugin loads it
+		// first serves all of them, and a shop with six of these installed
+		// downloads one copy.
+		wp_enqueue_style(
+			'dahu-ui',
+			DAHU_PRODUCT_IMPORT_URL . 'assets/css/dahu-ui.css',
+			array(),
+			DAHU_PRODUCT_IMPORT_VERSION
+		);
+
 		wp_enqueue_style(
 			'dahu-product-import-admin',
 			DAHU_PRODUCT_IMPORT_URL . 'assets/css/admin.css',
-			array(),
+			array( 'dahu-ui' ),
 			DAHU_PRODUCT_IMPORT_VERSION
 		);
 	}
@@ -86,12 +99,12 @@ final class Dahu_Product_Import_Admin {
 		$reserved = Dahu_Product_Import_Fields::reserved_columns();
 
 		?>
-		<div class="wrap">
-			<h1><?php esc_html_e( 'Product import', 'dahu-product-import' ); ?></h1>
+		<div class="wrap dahu-ui">
+			<div class="dahu-ui-head">
+				<h1 class="dahu-ui-head__title"><?php esc_html_e( 'Product import', 'dahu-product-import' ); ?></h1>
+				<p class="dahu-ui-head__sub"><?php esc_html_e( 'Brings products in from a file, and says what it changed.', 'dahu-product-import' ); ?></p>
+			</div>
 
-			<p class="dahu-product-import__intro">
-				<?php esc_html_e( 'Dahu Product Import lets you edit your product text in a spreadsheet and import it back. Everything runs from WP-CLI: an import writes to hundreds of products at once, so it needs a dry run you can read, a report you can keep, and no browser timing out halfway through.', 'dahu-product-import' ); ?>
-			</p>
 			<hr class="wp-header-end">
 
 			<p>
@@ -104,7 +117,10 @@ final class Dahu_Product_Import_Admin {
 				?>
 			</p>
 
-			<h2><?php esc_html_e( 'The sequence', 'dahu-product-import' ); ?></h2>
+			<div class="dahu-ui-card">
+			<div class="dahu-ui-card__head">
+				<h2 class="dahu-ui-card__title"><?php esc_html_e( 'The sequence', 'dahu-product-import' ); ?></h2>
+			</div>
 
 			<ol class="dahu-pi-steps">
 				<?php foreach ( $steps as $label => $command ) : ?>
@@ -114,8 +130,12 @@ final class Dahu_Product_Import_Admin {
 					</li>
 				<?php endforeach; ?>
 			</ol>
+			</div>
 
-			<h2><?php esc_html_e( 'The columns of your file', 'dahu-product-import' ); ?></h2>
+			<div class="dahu-ui-card">
+			<div class="dahu-ui-card__head">
+				<h2 class="dahu-ui-card__title"><?php esc_html_e( 'The columns of your file', 'dahu-product-import' ); ?></h2>
+			</div>
 
 			<p class="dahu-pi-note">
 				<?php esc_html_e( 'These depend on what your theme or plugins have declared, so this list is the only accurate one for this site.', 'dahu-product-import' ); ?>
@@ -192,12 +212,17 @@ final class Dahu_Product_Import_Admin {
 					?>
 				</p>
 			<?php endif; ?>
+			</div>
 
-			<h2><?php esc_html_e( 'What an import never touches', 'dahu-product-import' ); ?></h2>
+			<div class="dahu-ui-card">
+			<div class="dahu-ui-card__head">
+				<h2 class="dahu-ui-card__title"><?php esc_html_e( 'What an import never touches', 'dahu-product-import' ); ?></h2>
+			</div>
 
-			<p class="dahu-product-import__intro">
+			<p class="dahu-product-import__note">
 				<?php esc_html_e( 'Prices, stock, weights, dimensions, categories, tags, variations, global attributes, orders and customers. It never creates or deletes a product either: a row naming an id this site does not have is reported and skipped.', 'dahu-product-import' ); ?>
 			</p>
+			</div>
 		</div>
 		<?php
 	}
