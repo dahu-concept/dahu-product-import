@@ -3,7 +3,7 @@
  * Plugin Name:       Dahu Product Import
  * Plugin URI:        https://dahu-concept.fr
  * Description:       Edit WooCommerce product text in a spreadsheet and import it back: one row per product, a dry run that shows every change before anything is written, and a rollback.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Hugo Vial-Jaime
  * Author URI:        mailto:contact@dahu-concept.fr
  * License:           MIT
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'DAHU_PRODUCT_IMPORT_VERSION', '1.0.0' );
+define( 'DAHU_PRODUCT_IMPORT_VERSION', '1.1.0' );
 define( 'DAHU_PRODUCT_IMPORT_FILE', __FILE__ );
 define( 'DAHU_PRODUCT_IMPORT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'DAHU_PRODUCT_IMPORT_URL', plugin_dir_url( __FILE__ ) );
@@ -156,10 +156,19 @@ add_action(
 				'file'       => DAHU_PRODUCT_IMPORT_FILE,
 				'version'    => DAHU_PRODUCT_IMPORT_VERSION,
 				'textdomain' => 'dahu-product-import',
+				'mark'       => array(
+					'view'  => '0 0 112 112',
+					'paths' => array(
+						'M10 76 L10 100 Q10 106 16 106 L96 106 Q102 106 102 100 L102 76',
+						'M10 76 L30 62 M102 76 L82 62 M10 76 L102 76',
+						'M56 10 L56 52 M42 40 L56 54 L70 40',
+						'M34.0 2.0 H78.0 A4.0 4.0 0 0 1 82.0 6.0 V12.0 A4.0 4.0 0 0 1 78.0 16.0 H34.0 A4.0 4.0 0 0 1 30.0 12.0 V6.0 A4.0 4.0 0 0 1 34.0 2.0 Z',
+					),
+				),
 				/*
-				 * Les mots de l'accueil viennent d'ici : le fichier partagé est
-				 * recopié dans toute la famille et ne peut donc porter aucun
-				 * domaine de traduction.
+				 * The welcome screen's words come from here: the shared file is
+				 * copied byte for byte across the whole family, so it can carry
+				 * no text domain of its own.
 				 */
 				'strings'    => array(
 					'next'   => __( 'Next', 'dahu-product-import' ),

@@ -4,7 +4,7 @@ Tags: woocommerce, products, csv, import, export
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -167,6 +167,12 @@ The text fields work; the SKU and attributes columns are skipped and say so.
 Yes — it never reads or writes an order at all, and declares itself compatible.
 
 == Changelog ==
+
+= 1.1.0 =
+* The activation screen now opens on the plugin's own mark rather than its initials, and the banner carries the same drawing as a watermark.
+
+= 1.0.1 =
+* A third-party hook that raises an Error while the SKU is being written is now a counted error on that one row, instead of ending the import on a product whose text had just been written.
 
 = 1.0.0 =
 * First public release.

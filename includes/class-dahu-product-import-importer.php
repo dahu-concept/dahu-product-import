@@ -351,7 +351,15 @@ final class Dahu_Product_Import_Importer {
 			// planning, but the catalogue can have moved since.
 			$product->set_sku( $values['sku'] );
 			$product->save();
-		} catch ( Exception $e ) {
+		} catch ( Throwable $e ) {
+			// Throwable, and not Exception. save() runs every third-party
+			// hook on a product write, and a plugin that calls a method on
+			// null there raises an Error. An Error escaping this clause
+			// leaves the run at the product whose text has just been
+			// written, with the remaining lines neither written nor
+			// reported — a half-done import whose backup covers only the
+			// products it reached. One refused SKU is a counted error and
+			// the next line, which is what the clause was for.
 			++$stats['errors'];
 			$this->write_log(
 				sprintf( 'product #%d: SKU "%s" refused by WooCommerce (%s)', $id, $values['sku'], $e->getMessage() ),
