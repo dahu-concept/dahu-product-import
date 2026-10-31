@@ -40,41 +40,39 @@ final class Dahu_Product_Import_Workspace {
 			$home = (string) getenv( 'HOME' );
 
 			if ( '' === $home ) {
-				throw new RuntimeException( __( 'The HOME variable is not set: pass --dir=<absolute path>.', 'dahu-product-import' ) );
+				throw new RuntimeException( esc_html( __( 'The HOME variable is not set: pass --dir=<absolute path>.', 'dahu-product-import' ) ) );
 			}
 
 			$dir = rtrim( $home, '/' ) . '/dahu-product-import';
 		}
 
 		if ( 0 !== strpos( $dir, '/' ) || false !== strpos( $dir, '..' ) ) {
-			throw new RuntimeException( __( 'The working directory must be an absolute path with no "..".', 'dahu-product-import' ) );
+			throw new RuntimeException( esc_html( __( 'The working directory must be an absolute path with no "..".', 'dahu-product-import' ) ) );
 		}
 
 		if ( ! is_dir( $dir ) && ! wp_mkdir_p( $dir ) ) {
 			/* translators: %s: directory path. */
-			throw new RuntimeException( sprintf( __( 'Cannot create the working directory: %s', 'dahu-product-import' ), $dir ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot create the working directory: %s', 'dahu-product-import' ), $dir ) ) );
 		}
 
 		$real = realpath( $dir );
 
-		if ( false === $real || ! is_writable( $real ) ) {
+		if ( false === $real || ! is_writable( $real ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable -- CLI tool writing outside the web root, where WP_Filesystem is not initialised and has no credentials to ask for.
 			/* translators: %s: directory path. */
-			throw new RuntimeException( sprintf( __( 'The working directory is not writable: %s', 'dahu-product-import' ), $dir ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'The working directory is not writable: %s', 'dahu-product-import' ), $dir ) ) );
 		}
 
 		foreach ( self::web_roots() as $root ) {
 			if ( 0 === strpos( trailingslashit( $real ), trailingslashit( $root ) ) ) {
-				throw new RuntimeException(
-					sprintf(
+				throw new RuntimeException( esc_html( sprintf(
 						/* translators: %s: the web root that contains it. */
 						__( 'The working directory is inside a web root (%s): choose one outside it. The backups hold your product text.', 'dahu-product-import' ),
 						$root
-					)
-				);
+					) ) );
 			}
 		}
 
-		@chmod( $real, 0700 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- best effort on shared hosting.
+		@chmod( $real, 0700 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_chmod -- best effort on shared hosting.
 
 		$this->dir = untrailingslashit( $real );
 	}
@@ -154,12 +152,12 @@ final class Dahu_Product_Import_Workspace {
 		$tmp  = $path . '.tmp';
 
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- CLI, outside the web root.
-		if ( false === file_put_contents( $tmp, $content, LOCK_EX ) || ! rename( $tmp, $path ) ) {
+		if ( false === file_put_contents( $tmp, $content, LOCK_EX ) || ! rename( $tmp, $path ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename, WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- CLI tool writing outside the web root, where WP_Filesystem is not initialised and has no credentials to ask for. The rename is the atomic commit of the temporary file.
 			/* translators: %s: file path. */
-			throw new RuntimeException( sprintf( __( 'Cannot write: %s', 'dahu-product-import' ), $path ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot write: %s', 'dahu-product-import' ), $path ) ) );
 		}
 
-		@chmod( $path, 0600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		@chmod( $path, 0600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_chmod -- CLI tool writing outside the web root, where WP_Filesystem is not initialised and has no credentials to ask for.
 
 		return $path;
 	}
@@ -176,14 +174,14 @@ final class Dahu_Product_Import_Workspace {
 		$file = trim( (string) $file );
 
 		if ( '' === $file ) {
-			throw new RuntimeException( __( 'No file name given.', 'dahu-product-import' ) );
+			throw new RuntimeException( esc_html( __( 'No file name given.', 'dahu-product-import' ) ) );
 		}
 
 		$path = 0 === strpos( $file, '/' ) ? $file : $this->path( $file );
 
 		if ( ! is_file( $path ) || ! is_readable( $path ) ) {
 			/* translators: %s: file path. */
-			throw new RuntimeException( sprintf( __( 'File not found: %s', 'dahu-product-import' ), $path ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'File not found: %s', 'dahu-product-import' ), $path ) ) );
 		}
 
 		return $path;
@@ -220,22 +218,20 @@ final class Dahu_Product_Import_Workspace {
 			$path   = $this->path( sprintf( $template, $suffix ) );
 
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
-			$handle = @fopen( $path, 'xb' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- an existing file is the expected answer here, not an error.
+			$handle = @fopen( $path, 'xb' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- an existing file is the expected answer here, not an error.
 
 			if ( $handle ) {
 				fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
-				@chmod( $path, 0600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+				@chmod( $path, 0600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_chmod -- CLI tool writing outside the web root, where WP_Filesystem is not initialised and has no credentials to ask for.
 				return $suffix;
 			}
 		}
 
-		throw new RuntimeException(
-			sprintf(
+		throw new RuntimeException( esc_html( sprintf(
 				/* translators: %s: file name pattern. */
 				__( 'Could not reserve a file name for %s in the working directory.', 'dahu-product-import' ),
 				sprintf( $template, self::stamp() )
-			)
-		);
+			) ) );
 	}
 
 	/**
@@ -252,10 +248,10 @@ final class Dahu_Product_Import_Workspace {
 
 		if ( ! $handle ) {
 			/* translators: %s: file path. */
-			throw new RuntimeException( sprintf( __( 'Cannot open: %s', 'dahu-product-import' ), $this->path( $name ) ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot open: %s', 'dahu-product-import' ), $this->path( $name ) ) ) );
 		}
 
-		@chmod( $this->path( $name ), 0600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		@chmod( $this->path( $name ), 0600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_chmod -- CLI tool writing outside the web root, where WP_Filesystem is not initialised and has no credentials to ask for.
 
 		return $handle;
 	}
@@ -275,7 +271,7 @@ final class Dahu_Product_Import_Workspace {
 		$handle = $this->open_append( 'import.lock' );
 
 		if ( ! flock( $handle, LOCK_EX | LOCK_NB ) ) {
-			throw new RuntimeException( __( 'An import or a rollback is already running (import.lock).', 'dahu-product-import' ) );
+			throw new RuntimeException( esc_html( __( 'An import or a rollback is already running (import.lock).', 'dahu-product-import' ) ) );
 		}
 
 		return $handle;

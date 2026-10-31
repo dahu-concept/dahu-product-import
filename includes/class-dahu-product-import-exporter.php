@@ -77,7 +77,7 @@ final class Dahu_Product_Import_Exporter {
 				'orderby'          => 'ID',
 				'order'            => 'ASC',
 				'fields'           => 'ids',
-				'suppress_filters' => true,
+				'suppress_filters' => true, // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.SuppressFilters_suppress_filters -- Deliberate on a CLI export: the list of products must be the one in the database, not one a third-party filter has narrowed.
 			)
 		);
 
