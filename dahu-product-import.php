@@ -5,7 +5,7 @@
  * Description:       Edit WooCommerce product text in a spreadsheet and import it back: one row per product, a dry run that shows every change before anything is written, and a rollback.
  * Version:           1.1.0
  * Author:            Hugo Vial-Jaime
- * Author URI:        mailto:contact@dahu-concept.fr
+ * Author URI:        https://dahu-concept.fr
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
  * Text Domain:       dahu-product-import

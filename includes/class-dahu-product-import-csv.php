@@ -44,11 +44,11 @@ final class Dahu_Product_Import_CSV {
 
 		if ( ! $handle ) {
 			/* translators: %s: file path. */
-			throw new RuntimeException( sprintf( __( 'Cannot read: %s', 'dahu-product-import' ), $path ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot read: %s', 'dahu-product-import' ), $path ) ) );
 		}
 
 		try {
-			if ( "\xEF\xBB\xBF" !== fread( $handle, 3 ) ) {
+			if ( "\xEF\xBB\xBF" !== fread( $handle, 3 ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fread -- Reads the three bytes of a possible byte-order mark from the handle; WP_Filesystem would load the whole CSV into memory.
 				rewind( $handle );
 			}
 
@@ -73,13 +73,11 @@ final class Dahu_Product_Import_CSV {
 					$cell = (string) $cell;
 
 					if ( ! mb_check_encoding( $cell, 'UTF-8' ) ) {
-						throw new RuntimeException(
-							sprintf(
+						throw new RuntimeException( esc_html( sprintf(
 								/* translators: %d: spreadsheet line number. */
 								__( 'Line %d: the text is not UTF-8. Save the spreadsheet as "CSV UTF-8", not as plain "CSV".', 'dahu-product-import' ),
 								$number
-							)
-						);
+							) ) );
 					}
 
 					$row[ $i ] = str_replace( array( "\r\n", "\r" ), "\n", $cell );
@@ -103,33 +101,29 @@ final class Dahu_Product_Import_CSV {
 
 		if ( null === $header ) {
 			/* translators: %s: file path. */
-			throw new RuntimeException( sprintf( __( 'The file is empty: %s', 'dahu-product-import' ), $path ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'The file is empty: %s', 'dahu-product-import' ), $path ) ) );
 		}
 
 		$expected = Dahu_Product_Import_Fields::columns();
 		$missing  = array_diff( $expected, $header );
 
 		if ( $missing ) {
-			throw new RuntimeException(
-				sprintf(
+			throw new RuntimeException( esc_html( sprintf(
 					/* translators: 1: comma-separated column names, 2: the detected separator. */
 					__( 'Columns missing from the header: %1$s (separator detected: "%2$s").', 'dahu-product-import' ),
 					implode( ', ', $missing ),
 					"\t" === $separator ? 'tab' : $separator
-				)
-			);
+				) ) );
 		}
 
 		$duplicates = array_diff_assoc( $header, array_unique( $header ) );
 
 		if ( $duplicates ) {
-			throw new RuntimeException(
-				sprintf(
+			throw new RuntimeException( esc_html( sprintf(
 					/* translators: %s: comma-separated column names. */
 					__( 'Duplicate columns in the header: %s', 'dahu-product-import' ),
 					implode( ', ', array_unique( $duplicates ) )
-				)
-			);
+				) ) );
 		}
 
 		$rows = array();

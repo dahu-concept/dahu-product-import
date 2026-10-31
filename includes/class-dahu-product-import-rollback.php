@@ -78,7 +78,7 @@ final class Dahu_Product_Import_Rollback {
 		if ( ! $handle ) {
 			flock( $lock, LOCK_UN );
 			/* translators: %s: file path. */
-			throw new RuntimeException( sprintf( __( 'Cannot read: %s', 'dahu-product-import' ), $path ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot read: %s', 'dahu-product-import' ), $path ) ) );
 		}
 
 		/*
