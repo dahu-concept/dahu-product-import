@@ -1,7 +1,6 @@
 <?php
 /**
  * Plugin Name:       Dahu Product Import
- * Plugin URI:        https://dahu-concept.fr
  * Description:       Edit WooCommerce product text in a spreadsheet and import it back: one row per product, a dry run that shows every change before anything is written, and a rollback.
  * Version:           1.1.0
  * Author:            Hugo Vial-Jaime
