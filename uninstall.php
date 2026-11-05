@@ -11,7 +11,7 @@
  * to WooCommerce, and those are the shop's content, not this plugin's data.
  *
  * The three exceptions are the welcome screen's own flags, written by
- * `includes/dahu-welcome.php` — the file this family copies into every
+ * `includes/ubac-welcome.php` — the file this family copies into every
  * plugin. They are interface state rather than data, and they are the reason
  * this file is not empty: left behind, a reinstall would never greet anybody
  * again, the screen and the guided tour staying silent for good with nothing
@@ -24,7 +24,7 @@
  * Removing them is a `rm` on a directory somebody chose, which belongs to them
  * and not to an uninstall routine.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
@@ -34,29 +34,29 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
  *
  * @return void
  */
-function dahu_product_import_uninstall_site() {
+function ubac_import_uninstall_site() {
 
-	delete_option( 'dahu_welcome_seen_dahu-product-import' );
-	delete_option( 'dahu_welcome_pending_dahu-product-import' );
-	delete_option( 'dahu_welcome_tour_dahu-product-import' );
+	delete_option( 'ubac_welcome_seen_ubac-import' );
+	delete_option( 'ubac_welcome_pending_ubac-import' );
+	delete_option( 'ubac_welcome_tour_ubac-import' );
 }
 
 if ( is_multisite() ) {
 
 	// `number => 0`: without it WP_Site_Query stops at the first hundred sites
 	// and the flags stay behind on every other one.
-	$dahu_product_import_sites = get_sites(
+	$ubac_import_sites = get_sites(
 		array(
 			'fields' => 'ids',
 			'number' => 0,
 		)
 	);
 
-	foreach ( $dahu_product_import_sites as $dahu_product_import_site ) {
-		switch_to_blog( (int) $dahu_product_import_site );
-		dahu_product_import_uninstall_site();
+	foreach ( $ubac_import_sites as $ubac_import_site ) {
+		switch_to_blog( (int) $ubac_import_site );
+		ubac_import_uninstall_site();
 		restore_current_blog();
 	}
 } else {
-	dahu_product_import_uninstall_site();
+	ubac_import_uninstall_site();
 }

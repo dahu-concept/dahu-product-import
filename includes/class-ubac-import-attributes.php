@@ -2,7 +2,7 @@
 /**
  * The attributes column.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
  * it is the point: silently ignoring the line would leave somebody editing the
  * same cell again next week, wondering why it never takes.
  */
-final class Dahu_Product_Import_Attributes {
+final class Ubac_Import_Attributes {
 
 	/** Separator between several values of one attribute. */
 	const VALUE_SEPARATOR = ' | ';
@@ -206,14 +206,14 @@ final class Dahu_Product_Import_Attributes {
 			$warnings[] = sprintf(
 				/* translators: 1: column name, 2: the line as typed. */
 				__( '%1$s: line without a ":" ignored — "%2$s"', 'ubac-import' ),
-				Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES,
-				Dahu_Product_Import_Sanitize::preview( $line )
+				Ubac_Import_Fields::COLUMN_ATTRIBUTES,
+				Ubac_Import_Sanitize::preview( $line )
 			);
 		}
 
 		foreach ( $parsed['pairs'] as $pair ) {
 
-			$name = Dahu_Product_Import_Sanitize::text( $pair['name'] );
+			$name = Ubac_Import_Sanitize::text( $pair['name'] );
 			$key  = self::key( $name );
 
 			if ( '' === $name ) {
@@ -224,7 +224,7 @@ final class Dahu_Product_Import_Attributes {
 				$warnings[] = sprintf(
 					/* translators: 1: column name, 2: attribute name, 3: why it is protected. */
 					__( '%1$s: "%2$s" is a %3$s — line ignored, the existing attribute is left untouched.', 'ubac-import' ),
-					Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES,
+					Ubac_Import_Fields::COLUMN_ATTRIBUTES,
 					$name,
 					$protected[ $key ]
 				);
@@ -242,7 +242,7 @@ final class Dahu_Product_Import_Attributes {
 				$warnings[] = sprintf(
 					/* translators: 1: column name, 2: attribute name. */
 					__( '%1$s: "%2$s" names the same attribute as an earlier line; only the first is kept.', 'ubac-import' ),
-					Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES,
+					Ubac_Import_Fields::COLUMN_ATTRIBUTES,
 					$name
 				);
 				continue;
@@ -255,7 +255,7 @@ final class Dahu_Product_Import_Attributes {
 			$values = array_values(
 				array_filter(
 					array_map(
-						array( 'Dahu_Product_Import_Sanitize', 'text' ),
+						array( 'Ubac_Import_Sanitize', 'text' ),
 						explode( '|', $pair['value'] )
 					),
 					static function ( $value ) {

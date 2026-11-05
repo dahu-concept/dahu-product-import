@@ -2,7 +2,7 @@
 /**
  * The WP-CLI commands.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * The usual sequence is: export, edit the file, import once to see the report,
  * then import with --execute.
  */
-final class Dahu_Product_Import_CLI {
+final class Ubac_Import_CLI {
 
 	/**
 	 * Exports every product's text to a spreadsheet.
@@ -28,7 +28,7 @@ final class Dahu_Product_Import_CLI {
 	 *
 	 * [--dir=<path>]
 	 * : Working directory. Absolute, and outside any web root. Defaults to
-	 * $HOME/dahu-product-import.
+	 * $HOME/ubac-import.
 	 *
 	 * ## EXAMPLES
 	 *
@@ -44,9 +44,9 @@ final class Dahu_Product_Import_CLI {
 		$workspace = $this->workspace( $assoc_args );
 		$name      = isset( $assoc_args['file'] ) && '' !== $assoc_args['file']
 			? (string) $assoc_args['file']
-			: 'products-' . Dahu_Product_Import_Workspace::stamp() . '.csv';
+			: 'products-' . Ubac_Import_Workspace::stamp() . '.csv';
 
-		$result = ( new Dahu_Product_Import_Exporter( $workspace ) )->run( $name, $this->separator( $assoc_args ) );
+		$result = ( new Ubac_Import_Exporter( $workspace ) )->run( $name, $this->separator( $assoc_args ) );
 
 		/* translators: %d: how many products. */
 		WP_CLI::log( sprintf( __( 'Products written: %d', 'ubac-import' ), $result['products'] ) );
@@ -92,10 +92,10 @@ final class Dahu_Product_Import_CLI {
 		}
 
 		$path = $workspace->resolve( (string) $assoc_args['file'] );
-		$plan = ( new Dahu_Product_Import_Planner() )->plan( $path );
+		$plan = ( new Ubac_Import_Planner() )->plan( $path );
 
-		$report = Dahu_Product_Import_Report::build( $plan, $execute );
-		$name   = 'report-' . Dahu_Product_Import_Workspace::stamp() . '.txt';
+		$report = Ubac_Import_Report::build( $plan, $execute );
+		$name   = 'report-' . Ubac_Import_Workspace::stamp() . '.txt';
 		$saved  = $workspace->write( $name, $report . "\n" );
 
 		WP_CLI::log( $report );
@@ -113,7 +113,7 @@ final class Dahu_Product_Import_CLI {
 			return;
 		}
 
-		$result = ( new Dahu_Product_Import_Importer( $workspace, array( 'WP_CLI', 'log' ) ) )->run( $plan );
+		$result = ( new Ubac_Import_Importer( $workspace, array( 'WP_CLI', 'log' ) ) )->run( $plan );
 
 		WP_CLI::log( '' );
 		/* translators: %s: file path. */
@@ -185,7 +185,7 @@ final class Dahu_Product_Import_CLI {
 
 		$execute = ! empty( $assoc_args['execute'] );
 
-		$stats = ( new Dahu_Product_Import_Rollback( $workspace, array( 'WP_CLI', 'log' ) ) )->run(
+		$stats = ( new Ubac_Import_Rollback( $workspace, array( 'WP_CLI', 'log' ) ) )->run(
 			(string) $assoc_args['file'],
 			$execute,
 			! empty( $assoc_args['force'] )
@@ -263,7 +263,7 @@ final class Dahu_Product_Import_CLI {
 		$file = ! empty( $assoc_args['file'] ) ? $workspace->resolve( (string) $assoc_args['file'] ) : null;
 
 		WP_CLI::log(
-			Dahu_Product_Import_Diagnostics::trace( $ids, $file, $this->separator( $assoc_args ) )
+			Ubac_Import_Diagnostics::trace( $ids, $file, $this->separator( $assoc_args ) )
 		);
 
 		WP_CLI::success( __( 'Nothing was written.', 'ubac-import' ) );
@@ -293,9 +293,9 @@ final class Dahu_Product_Import_CLI {
 
 		$rows = array();
 
-		foreach ( Dahu_Product_Import_Fields::columns() as $column ) {
+		foreach ( Ubac_Import_Fields::columns() as $column ) {
 
-			$fields = Dahu_Product_Import_Fields::all();
+			$fields = Ubac_Import_Fields::all();
 
 			if ( isset( $fields[ $column ] ) ) {
 				$rows[] = array(
@@ -311,12 +311,12 @@ final class Dahu_Product_Import_CLI {
 			}
 
 			$fixed = array(
-				Dahu_Product_Import_Fields::COLUMN_ID         => array( __( 'matches the product', 'ubac-import' ), '' ),
-				Dahu_Product_Import_Fields::COLUMN_SLUG       => array( __( 'confirms the id', 'ubac-import' ), '' ),
-				Dahu_Product_Import_Fields::COLUMN_SKU        => array( '_sku', __( 'never cleared by an empty cell', 'ubac-import' ) ),
-				Dahu_Product_Import_Fields::COLUMN_TYPE       => array( __( 'never written', 'ubac-import' ), __( 'for information', 'ubac-import' ) ),
-				Dahu_Product_Import_Fields::COLUMN_CATEGORY   => array( __( 'never written', 'ubac-import' ), __( 'for information', 'ubac-import' ) ),
-				Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES => array( __( 'local attributes', 'ubac-import' ), __( 'visible, non-variation only', 'ubac-import' ) ),
+				Ubac_Import_Fields::COLUMN_ID         => array( __( 'matches the product', 'ubac-import' ), '' ),
+				Ubac_Import_Fields::COLUMN_SLUG       => array( __( 'confirms the id', 'ubac-import' ), '' ),
+				Ubac_Import_Fields::COLUMN_SKU        => array( '_sku', __( 'never cleared by an empty cell', 'ubac-import' ) ),
+				Ubac_Import_Fields::COLUMN_TYPE       => array( __( 'never written', 'ubac-import' ), __( 'for information', 'ubac-import' ) ),
+				Ubac_Import_Fields::COLUMN_CATEGORY   => array( __( 'never written', 'ubac-import' ), __( 'for information', 'ubac-import' ) ),
+				Ubac_Import_Fields::COLUMN_ATTRIBUTES => array( __( 'local attributes', 'ubac-import' ), __( 'visible, non-variation only', 'ubac-import' ) ),
 			);
 
 			$rows[] = array(
@@ -329,7 +329,7 @@ final class Dahu_Product_Import_CLI {
 
 		WP_CLI\Utils\format_items( 'table', $rows, array( 'column', 'writes', 'nature', 'rules' ) );
 
-		$excluded = Dahu_Product_Import_Fields::excluded_product_types();
+		$excluded = Ubac_Import_Fields::excluded_product_types();
 
 		WP_CLI::log( '' );
 		WP_CLI::log(
@@ -356,12 +356,12 @@ final class Dahu_Product_Import_CLI {
 	 * Builds the working directory, turning a failure into a CLI error.
 	 *
 	 * @param array $assoc_args Flags.
-	 * @return Dahu_Product_Import_Workspace
+	 * @return Ubac_Import_Workspace
 	 */
 	private function workspace( array $assoc_args ) {
 
 		try {
-			return new Dahu_Product_Import_Workspace( isset( $assoc_args['dir'] ) ? (string) $assoc_args['dir'] : '' );
+			return new Ubac_Import_Workspace( isset( $assoc_args['dir'] ) ? (string) $assoc_args['dir'] : '' );
 		} catch ( RuntimeException $e ) {
 			WP_CLI::error( $e->getMessage() );
 		}

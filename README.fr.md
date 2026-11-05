@@ -1,4 +1,4 @@
-# Dahu Product Import
+# Ubac Product Import
 
 Modifier les textes des produits WooCommerce dans un tableur et les réimporter,
 avec une simulation qui montre chaque changement avant toute écriture, et un
@@ -49,7 +49,7 @@ Plus ce que votre thème déclare.
 ## Déclarer vos propres champs
 
 ```php
-add_filter( 'dahu_product_import_fields', function ( $fields ) {
+add_filter( 'ubac_import_fields', function ( $fields ) {
 	$fields['subtitle'] = array(
 		'target' => '_my_theme_subtitle',
 		'nature' => 'text',
@@ -102,9 +102,9 @@ ce qui se trouve entre les deux. L'échappement appartient à l'affichage.
 
 | Accroche | Type | À quoi elle sert |
 |---|---|---|
-| `dahu_product_import_fields` | filtre | Déclarer des colonnes |
-| `dahu_product_import_excluded_product_types` | filtre | Types de produits à laisser à un autre outil ; leurs lignes sont signalées comme rejetées, pas sautées en silence |
-| `dahu_product_import_plan_row` | action | Ajouter une écriture qui découle de la ligne plutôt que d'une colonne à elle. Reçoit `&$item, $row, $id, $wanted` ; ajoutez à `$item['changes']` pour le rapport et à `$item['values']` pour l'écriture. Ne doit pas toucher la base : elle s'exécute aussi pendant la simulation |
+| `ubac_import_fields` | filtre | Déclarer des colonnes |
+| `ubac_import_excluded_product_types` | filtre | Types de produits à laisser à un autre outil ; leurs lignes sont signalées comme rejetées, pas sautées en silence |
+| `ubac_import_plan_row` | action | Ajouter une écriture qui découle de la ligne plutôt que d'une colonne à elle. Reçoit `&$item, $row, $id, $wanted` ; ajoutez à `$item['changes']` pour le rapport et à `$item['values']` pour l'écriture. Ne doit pas toucher la base : elle s'exécute aussi pendant la simulation |
 
 ## L'aller-retour
 

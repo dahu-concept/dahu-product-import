@@ -14,29 +14,29 @@
  * WC requires at least: 7.0
  * WC tested up to:   11.2
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'DAHU_PRODUCT_IMPORT_VERSION', '1.1.0' );
-define( 'DAHU_PRODUCT_IMPORT_FILE', __FILE__ );
-define( 'DAHU_PRODUCT_IMPORT_PATH', plugin_dir_path( __FILE__ ) );
-define( 'DAHU_PRODUCT_IMPORT_URL', plugin_dir_url( __FILE__ ) );
-define( 'DAHU_PRODUCT_IMPORT_BASENAME', plugin_basename( __FILE__ ) );
-define( 'DAHU_PRODUCT_IMPORT_SLUG', 'dahu-product-import' );
+define( 'UBAC_IMPORT_VERSION', '1.1.0' );
+define( 'UBAC_IMPORT_FILE', __FILE__ );
+define( 'UBAC_IMPORT_PATH', plugin_dir_path( __FILE__ ) );
+define( 'UBAC_IMPORT_URL', plugin_dir_url( __FILE__ ) );
+define( 'UBAC_IMPORT_BASENAME', plugin_basename( __FILE__ ) );
+define( 'UBAC_IMPORT_SLUG', 'ubac-import' );
 
 /**
- * Autoloader: Dahu_Product_Import_Foo_Bar => includes/class-dahu-product-import-foo-bar.php.
+ * Autoloader: Ubac_Import_Foo_Bar => includes/class-ubac-import-foo-bar.php.
  */
 spl_autoload_register(
 	static function ( $class ) {
 
-		if ( 0 !== strpos( $class, 'Dahu_Product_Import' ) ) {
+		if ( 0 !== strpos( $class, 'Ubac_Import' ) ) {
 			return;
 		}
 
-		$file = DAHU_PRODUCT_IMPORT_PATH . 'includes/class-' . strtolower( str_replace( '_', '-', $class ) ) . '.php';
+		$file = UBAC_IMPORT_PATH . 'includes/class-' . strtolower( str_replace( '_', '-', $class ) ) . '.php';
 
 		if ( is_readable( $file ) ) {
 			require_once $file;
@@ -63,7 +63,7 @@ add_action(
 		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
 				'custom_order_tables',
-				DAHU_PRODUCT_IMPORT_FILE,
+				UBAC_IMPORT_FILE,
 				true
 			);
 		}
@@ -83,19 +83,19 @@ add_action(
  * The admin screen exists, and it explains what to run.
  */
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	WP_CLI::add_command( 'product-import', 'Dahu_Product_Import_CLI' );
+	WP_CLI::add_command( 'product-import', 'Ubac_Import_CLI' );
 }
 
 if ( is_admin() ) {
-	Dahu_Product_Import_Admin::init();
+	Ubac_Import_Admin::init();
 }
 
 add_filter(
-	'plugin_action_links_' . DAHU_PRODUCT_IMPORT_BASENAME,
+	'plugin_action_links_' . UBAC_IMPORT_BASENAME,
 	static function ( $links ) {
 		$page = sprintf(
 			'<a href="%s">%s</a>',
-			esc_url( admin_url( 'tools.php?page=' . DAHU_PRODUCT_IMPORT_SLUG ) ),
+			esc_url( admin_url( 'tools.php?page=' . UBAC_IMPORT_SLUG ) ),
 			esc_html__( 'How to use', 'ubac-import' )
 		);
 		array_unshift( $links, $page );
@@ -107,7 +107,7 @@ add_filter(
 	'plugin_row_meta',
 	static function ( $links, $file ) {
 
-		if ( DAHU_PRODUCT_IMPORT_BASENAME !== $file ) {
+		if ( UBAC_IMPORT_BASENAME !== $file ) {
 			return $links;
 		}
 
@@ -129,7 +129,7 @@ add_filter(
  * Registered here rather than inside the admin include, because the
  * activation flag has to be set whatever else is loaded.
  */
-require_once DAHU_PRODUCT_IMPORT_PATH . 'includes/dahu-welcome.php';
+require_once UBAC_IMPORT_PATH . 'includes/ubac-welcome.php';
 
 /*
  * The flag, not a redirect: an activation hook that redirects breaks bulk
@@ -140,21 +140,21 @@ require_once DAHU_PRODUCT_IMPORT_PATH . 'includes/dahu-welcome.php';
 register_activation_hook(
 	__FILE__,
 	static function () {
-		Dahu_Welcome::mark_activated( 'dahu-product-import' );
+		Ubac_Welcome::mark_activated( 'ubac-import' );
 	}
 );
 
 add_action(
 	'init',
 	static function () {
-		Dahu_Welcome::register(
+		Ubac_Welcome::register(
 			array(
-				'slug'       => 'dahu-product-import',
+				'slug'       => 'ubac-import',
 				'name'       => __( 'Product import', 'ubac-import' ),
 				'tagline'    => __( 'Brings products in from a file, and says what it changed.', 'ubac-import' ),
-				'file'       => DAHU_PRODUCT_IMPORT_FILE,
-				'version'    => DAHU_PRODUCT_IMPORT_VERSION,
-				'textdomain' => 'dahu-product-import',
+				'file'       => UBAC_IMPORT_FILE,
+				'version'    => UBAC_IMPORT_VERSION,
+				'textdomain' => 'ubac-import',
 				'mark'       => array(
 					'view'  => '0 0 112 112',
 					'paths' => array(
@@ -200,20 +200,20 @@ add_action(
 				 * table (its head is static). A step whose target is missing
 				 * is skipped without a sound, so nothing here depends on data.
 				 */
-				'tour_screen' => 'tools_page_dahu-product-import',
+				'tour_screen' => 'tools_page_ubac-import',
 				'tour'        => array(
 					array(
-						'selector' => '.dahu-ui-head__title',
+						'selector' => '.ubac-ui-head__title',
 						'title'    => __( 'Runs from WP-CLI', 'ubac-import' ),
 						'text'     => __( 'This screen explains; the work is done from the command line.', 'ubac-import' ),
 					),
 					array(
-						'selector' => '.dahu-pi-steps',
+						'selector' => '.ubac-pi-steps',
 						'title'    => __( 'The sequence', 'ubac-import' ),
 						'text'     => __( 'Export, dry run, import. Start with the dry run.', 'ubac-import' ),
 					),
 					array(
-						'selector' => '.dahu-pi-columns',
+						'selector' => '.ubac-pi-columns',
 						'title'    => __( 'Your file\'s columns', 'ubac-import' ),
 						'text'     => __( 'The columns this site reads and writes.', 'ubac-import' ),
 					),

@@ -2,7 +2,7 @@
 /**
  * Applying a plan.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -19,12 +19,12 @@ defined( 'ABSPATH' ) || exit;
  * will quietly store something other than what was asked for, and the only way
  * to know is to look.
  */
-final class Dahu_Product_Import_Importer {
+final class Ubac_Import_Importer {
 
 	/**
 	 * Working directory.
 	 *
-	 * @var Dahu_Product_Import_Workspace
+	 * @var Ubac_Import_Workspace
 	 */
 	private $workspace;
 
@@ -52,10 +52,10 @@ final class Dahu_Product_Import_Importer {
 	/**
 	 * Constructor.
 	 *
-	 * @param Dahu_Product_Import_Workspace $workspace Working directory.
+	 * @param Ubac_Import_Workspace $workspace Working directory.
 	 * @param callable                      $say       Output callback.
 	 */
-	public function __construct( Dahu_Product_Import_Workspace $workspace, $say ) {
+	public function __construct( Ubac_Import_Workspace $workspace, $say ) {
 		$this->workspace = $workspace;
 		$this->say       = $say;
 	}
@@ -215,7 +215,7 @@ final class Dahu_Product_Import_Importer {
 		$sku_written = $this->write_sku( $id, $values, $stats );
 
 		if ( isset( $values['attributes'] ) && $before['product'] ) {
-			Dahu_Product_Import_Attributes::apply( $before['product'], $values['attributes'] );
+			Ubac_Import_Attributes::apply( $before['product'], $values['attributes'] );
 		}
 
 		clean_post_cache( $id );
@@ -273,7 +273,7 @@ final class Dahu_Product_Import_Importer {
 		}
 
 		if ( $product && isset( $values['attributes'] ) ) {
-			$record['attributes'] = Dahu_Product_Import_Attributes::pairs( $product );
+			$record['attributes'] = Ubac_Import_Attributes::pairs( $product );
 		}
 
 		return array(
@@ -416,9 +416,9 @@ final class Dahu_Product_Import_Importer {
 		if ( isset( $values['attributes'] ) ) {
 
 			$product = wc_get_product( $id );
-			$read    = $product ? Dahu_Product_Import_Attributes::pairs( $product ) : array();
+			$read    = $product ? Ubac_Import_Attributes::pairs( $product ) : array();
 
-			if ( Dahu_Product_Import_Attributes::to_cell( $read ) !== Dahu_Product_Import_Attributes::to_cell( $values['attributes'] ) ) {
+			if ( Ubac_Import_Attributes::to_cell( $read ) !== Ubac_Import_Attributes::to_cell( $values['attributes'] ) ) {
 				++$stats['warnings'];
 				$this->write_log(
 					sprintf( 'product #%d: attributes read back different from what was written', $id ),
@@ -471,7 +471,7 @@ final class Dahu_Product_Import_Importer {
 
 			$written[] = sprintf(
 				'%s [%d attribute(s)%s]',
-				Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES,
+				Ubac_Import_Fields::COLUMN_ATTRIBUTES,
 				count( $names ),
 				$names ? ': ' . implode( ', ', $names ) : ' — all removed'
 			);

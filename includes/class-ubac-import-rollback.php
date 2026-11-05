@@ -2,7 +2,7 @@
 /**
  * Putting back what an import replaced.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -23,12 +23,12 @@ defined( 'ABSPATH' ) || exit;
  *
  * A dry run is the default here too.
  */
-final class Dahu_Product_Import_Rollback {
+final class Ubac_Import_Rollback {
 
 	/**
 	 * Working directory.
 	 *
-	 * @var Dahu_Product_Import_Workspace
+	 * @var Ubac_Import_Workspace
 	 */
 	private $workspace;
 
@@ -42,10 +42,10 @@ final class Dahu_Product_Import_Rollback {
 	/**
 	 * Constructor.
 	 *
-	 * @param Dahu_Product_Import_Workspace $workspace Working directory.
+	 * @param Ubac_Import_Workspace $workspace Working directory.
 	 * @param callable                      $say       Output callback.
 	 */
-	public function __construct( Dahu_Product_Import_Workspace $workspace, $say ) {
+	public function __construct( Ubac_Import_Workspace $workspace, $say ) {
 		$this->workspace = $workspace;
 		$this->say       = $say;
 	}
@@ -219,7 +219,7 @@ final class Dahu_Product_Import_Rollback {
 			}
 
 			if ( $attributes ) {
-				Dahu_Product_Import_Attributes::apply( $attributes[0], $attributes[1] );
+				Ubac_Import_Attributes::apply( $attributes[0], $attributes[1] );
 			}
 
 			clean_post_cache( $id );
@@ -236,7 +236,7 @@ final class Dahu_Product_Import_Rollback {
 		}
 
 		if ( $attributes ) {
-			$restored[] = Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES;
+			$restored[] = Ubac_Import_Fields::COLUMN_ATTRIBUTES;
 		}
 
 		$this->out(
@@ -343,7 +343,7 @@ final class Dahu_Product_Import_Rollback {
 		}
 
 		$expected = isset( $record['after']['attributes'] ) ? $record['after']['attributes'] : null;
-		$current  = md5( (string) wp_json_encode( Dahu_Product_Import_Attributes::pairs( $product ) ) );
+		$current  = md5( (string) wp_json_encode( Ubac_Import_Attributes::pairs( $product ) ) );
 
 		if ( ! $force && $current !== $expected ) {
 			$this->out(

@@ -6,7 +6,7 @@
  * — reading the file, planning, reporting, writing, rolling back — works from
  * what is declared here and knows nothing about any particular shop.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Everything else is a theme's or a plugin's own meta, and a shop declares it:
  *
- *     add_filter( 'dahu_product_import_fields', function ( $fields ) {
+ *     add_filter( 'ubac_import_fields', function ( $fields ) {
  *         $fields['subtitle'] = array(
  *             'target' => '_my_theme_subtitle',
  *             'nature' => 'text',
@@ -36,7 +36,7 @@ defined( 'ABSPATH' ) || exit;
  * a column name that changed with the admin language would break every file
  * saved before the change.
  */
-final class Dahu_Product_Import_Fields {
+final class Ubac_Import_Fields {
 
 	/**
 	 * Column holding the product id, which is how a row is matched.
@@ -88,7 +88,7 @@ final class Dahu_Product_Import_Fields {
 	 *  - `target`     (required) `post:<field>` for a column of the posts
 	 *                 table, or a meta key.
 	 *  - `nature`     (required) how the value is cleaned, and what counts as
-	 *                 valid. See Dahu_Product_Import_Sanitize::NATURES.
+	 *                 valid. See Ubac_Import_Sanitize::NATURES.
 	 *  - `max_length` (optional) in characters. A longer value REJECTS the
 	 *                 whole row rather than being truncated.
 	 *  - `required`   (optional) true to reject a row whose cell is empty.
@@ -136,7 +136,7 @@ final class Dahu_Product_Import_Fields {
 		 *
 		 * @param array<string, array> $fields Column => declaration.
 		 */
-		$fields = (array) apply_filters( 'dahu_product_import_fields', $fields );
+		$fields = (array) apply_filters( 'ubac_import_fields', $fields );
 
 		self::$fields = self::validate( $fields );
 
@@ -161,7 +161,7 @@ final class Dahu_Product_Import_Fields {
 	private static function validate( $fields ) {
 
 		$reserved = self::reserved_columns();
-		$natures  = Dahu_Product_Import_Sanitize::NATURES;
+		$natures  = Ubac_Import_Sanitize::NATURES;
 		$valid    = array();
 		$rejected = array();
 
@@ -198,7 +198,7 @@ final class Dahu_Product_Import_Fields {
 		if ( $rejected && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Deliberate, gated on WP_DEBUG_LOG just above.
 			error_log(
-				'[Dahu Product Import] these field declarations were dropped as unusable: '
+				'[Ubac Product Import] these field declarations were dropped as unusable: '
 				. implode( ', ', $rejected )
 			);
 		}
@@ -260,7 +260,7 @@ final class Dahu_Product_Import_Fields {
 		 *
 		 * @param array<int, string> $types Product type slugs.
 		 */
-		return array_map( 'strval', (array) apply_filters( 'dahu_product_import_excluded_product_types', array() ) );
+		return array_map( 'strval', (array) apply_filters( 'ubac_import_excluded_product_types', array() ) );
 	}
 
 	/**

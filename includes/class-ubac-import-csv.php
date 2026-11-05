@@ -2,7 +2,7 @@
 /**
  * Reading and writing the spreadsheet.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * A column read one position to the left writes a description into a subtitle
  * on four hundred products, and nothing fails.
  */
-final class Dahu_Product_Import_CSV {
+final class Ubac_Import_CSV {
 
 	/**
 	 * Reads the file: header, plus records indexed by spreadsheet line number.
@@ -104,7 +104,7 @@ final class Dahu_Product_Import_CSV {
 			throw new RuntimeException( esc_html( sprintf( __( 'The file is empty: %s', 'ubac-import' ), $path ) ) );
 		}
 
-		$expected = Dahu_Product_Import_Fields::columns();
+		$expected = Ubac_Import_Fields::columns();
 		$missing  = array_diff( $expected, $header );
 
 		if ( $missing ) {

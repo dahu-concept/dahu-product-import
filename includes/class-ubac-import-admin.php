@@ -2,7 +2,7 @@
 /**
  * The Tools screen: what to run, and what the file holds.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * to type and, more usefully, shows the columns THIS site's file will have —
  * which depends on what the theme declared, so no documentation can state it.
  */
-final class Dahu_Product_Import_Admin {
+final class Ubac_Import_Admin {
 
 	/**
 	 * Hooks the menu.
@@ -35,7 +35,7 @@ final class Dahu_Product_Import_Admin {
 	 */
 	public static function enqueue_style( $hook ) {
 
-		if ( 'tools_page_' . DAHU_PRODUCT_IMPORT_SLUG !== $hook ) {
+		if ( 'tools_page_' . UBAC_IMPORT_SLUG !== $hook ) {
 			return;
 		}
 
@@ -46,17 +46,17 @@ final class Dahu_Product_Import_Admin {
 		// first serves all of them, and a shop with six of these installed
 		// downloads one copy.
 		wp_enqueue_style(
-			'dahu-ui',
-			DAHU_PRODUCT_IMPORT_URL . 'assets/css/dahu-ui.css',
+			'ubac-ui',
+			UBAC_IMPORT_URL . 'assets/css/ubac-ui.css',
 			array(),
-			DAHU_PRODUCT_IMPORT_VERSION
+			UBAC_IMPORT_VERSION
 		);
 
 		wp_enqueue_style(
-			'dahu-product-import-admin',
-			DAHU_PRODUCT_IMPORT_URL . 'assets/css/admin.css',
-			array( 'dahu-ui' ),
-			DAHU_PRODUCT_IMPORT_VERSION
+			'ubac-import-admin',
+			UBAC_IMPORT_URL . 'assets/css/admin.css',
+			array( 'ubac-ui' ),
+			UBAC_IMPORT_VERSION
 		);
 	}
 
@@ -70,7 +70,7 @@ final class Dahu_Product_Import_Admin {
 			__( 'Product Import', 'ubac-import' ),
 			__( 'Product Import', 'ubac-import' ),
 			'manage_woocommerce',
-			DAHU_PRODUCT_IMPORT_SLUG,
+			UBAC_IMPORT_SLUG,
 			array( __CLASS__, 'render' )
 		);
 	}
@@ -95,14 +95,14 @@ final class Dahu_Product_Import_Admin {
 			__( 'Find out why a field keeps being rewritten.', 'ubac-import' )         => 'wp product-import trace --ids=<ids>',
 		);
 
-		$fields   = Dahu_Product_Import_Fields::all();
-		$reserved = Dahu_Product_Import_Fields::reserved_columns();
+		$fields   = Ubac_Import_Fields::all();
+		$reserved = Ubac_Import_Fields::reserved_columns();
 
 		?>
-		<div class="wrap dahu-ui">
-			<div class="dahu-ui-head">
-				<h1 class="dahu-ui-head__title"><?php esc_html_e( 'Product import', 'ubac-import' ); ?></h1>
-				<p class="dahu-ui-head__sub"><?php esc_html_e( 'Brings products in from a file, and says what it changed.', 'ubac-import' ); ?></p>
+		<div class="wrap ubac-ui">
+			<div class="ubac-ui-head">
+				<h1 class="ubac-ui-head__title"><?php esc_html_e( 'Product import', 'ubac-import' ); ?></h1>
+				<p class="ubac-ui-head__sub"><?php esc_html_e( 'Brings products in from a file, and says what it changed.', 'ubac-import' ); ?></p>
 			</div>
 
 			<hr class="wp-header-end">
@@ -117,12 +117,12 @@ final class Dahu_Product_Import_Admin {
 				?>
 			</p>
 
-			<div class="dahu-ui-card">
-			<div class="dahu-ui-card__head">
-				<h2 class="dahu-ui-card__title"><?php esc_html_e( 'The sequence', 'ubac-import' ); ?></h2>
+			<div class="ubac-ui-card">
+			<div class="ubac-ui-card__head">
+				<h2 class="ubac-ui-card__title"><?php esc_html_e( 'The sequence', 'ubac-import' ); ?></h2>
 			</div>
 
-			<ol class="dahu-pi-steps">
+			<ol class="ubac-pi-steps">
 				<?php foreach ( $steps as $label => $command ) : ?>
 					<li>
 						<?php echo esc_html( $label ); ?><br>
@@ -132,16 +132,16 @@ final class Dahu_Product_Import_Admin {
 			</ol>
 			</div>
 
-			<div class="dahu-ui-card">
-			<div class="dahu-ui-card__head">
-				<h2 class="dahu-ui-card__title"><?php esc_html_e( 'The columns of your file', 'ubac-import' ); ?></h2>
+			<div class="ubac-ui-card">
+			<div class="ubac-ui-card__head">
+				<h2 class="ubac-ui-card__title"><?php esc_html_e( 'The columns of your file', 'ubac-import' ); ?></h2>
 			</div>
 
-			<p class="dahu-pi-note">
+			<p class="ubac-pi-note">
 				<?php esc_html_e( 'These depend on what your theme or plugins have declared, so this list is the only accurate one for this site.', 'ubac-import' ); ?>
 			</p>
 
-			<table class="widefat striped dahu-pi-columns">
+			<table class="widefat striped ubac-pi-columns">
 				<thead>
 					<tr>
 						<th><?php esc_html_e( 'Column', 'ubac-import' ); ?></th>
@@ -150,16 +150,16 @@ final class Dahu_Product_Import_Admin {
 					</tr>
 				</thead>
 				<tbody>
-				<?php foreach ( Dahu_Product_Import_Fields::columns() as $column ) : ?>
+				<?php foreach ( Ubac_Import_Fields::columns() as $column ) : ?>
 					<tr>
 						<td><code><?php echo esc_html( $column ); ?></code></td>
 						<td>
 							<?php
 							if ( isset( $fields[ $column ] ) ) {
 								echo '<code>' . esc_html( $fields[ $column ]['target'] ) . '</code>';
-							} elseif ( Dahu_Product_Import_Fields::COLUMN_SKU === $column ) {
+							} elseif ( Ubac_Import_Fields::COLUMN_SKU === $column ) {
 								echo '<code>_sku</code>';
-							} elseif ( Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES === $column ) {
+							} elseif ( Ubac_Import_Fields::COLUMN_ATTRIBUTES === $column ) {
 								esc_html_e( 'local attributes', 'ubac-import' );
 							} else {
 								esc_html_e( 'nothing', 'ubac-import' );
@@ -183,13 +183,13 @@ final class Dahu_Product_Import_Admin {
 
 								echo esc_html( implode( ', ', $notes ) );
 
-							} elseif ( Dahu_Product_Import_Fields::COLUMN_ID === $column ) {
+							} elseif ( Ubac_Import_Fields::COLUMN_ID === $column ) {
 								esc_html_e( 'matches the row to a product', 'ubac-import' );
-							} elseif ( Dahu_Product_Import_Fields::COLUMN_SLUG === $column ) {
+							} elseif ( Ubac_Import_Fields::COLUMN_SLUG === $column ) {
 								esc_html_e( 'confirms the id still means that product', 'ubac-import' );
-							} elseif ( Dahu_Product_Import_Fields::COLUMN_SKU === $column ) {
+							} elseif ( Ubac_Import_Fields::COLUMN_SKU === $column ) {
 								esc_html_e( 'an empty cell never clears a SKU', 'ubac-import' );
-							} elseif ( Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES === $column ) {
+							} elseif ( Ubac_Import_Fields::COLUMN_ATTRIBUTES === $column ) {
 								esc_html_e( 'visible, non-variation attributes only', 'ubac-import' );
 							} else {
 								esc_html_e( 'for information, never written', 'ubac-import' );
@@ -201,25 +201,25 @@ final class Dahu_Product_Import_Admin {
 				</tbody>
 			</table>
 
-			<?php if ( count( Dahu_Product_Import_Fields::columns() ) === count( $reserved ) + count( $fields ) && ! array_diff( array_keys( $fields ), array( 'title', 'description', 'short_description' ) ) ) : ?>
-				<p class="dahu-pi-note">
+			<?php if ( count( Ubac_Import_Fields::columns() ) === count( $reserved ) + count( $fields ) && ! array_diff( array_keys( $fields ), array( 'title', 'description', 'short_description' ) ) ) : ?>
+				<p class="ubac-pi-note">
 					<?php
 					printf(
 						/* translators: %s: the filter name, in code tags. */
 						esc_html__( 'Only the three built-in fields are declared. To carry your theme\'s own product fields, add them with the %s filter — the plugin\'s README has an example.', 'ubac-import' ),
-						'<code>dahu_product_import_fields</code>'
+						'<code>ubac_import_fields</code>'
 					);
 					?>
 				</p>
 			<?php endif; ?>
 			</div>
 
-			<div class="dahu-ui-card">
-			<div class="dahu-ui-card__head">
-				<h2 class="dahu-ui-card__title"><?php esc_html_e( 'What an import never touches', 'ubac-import' ); ?></h2>
+			<div class="ubac-ui-card">
+			<div class="ubac-ui-card__head">
+				<h2 class="ubac-ui-card__title"><?php esc_html_e( 'What an import never touches', 'ubac-import' ); ?></h2>
 			</div>
 
-			<p class="dahu-product-import__note">
+			<p class="ubac-import__note">
 				<?php esc_html_e( 'Prices, stock, weights, dimensions, categories, tags, variations, global attributes, orders and customers. It never creates or deletes a product either: a row naming an id this site does not have is reported and skipped.', 'ubac-import' ); ?>
 			</p>
 			</div>

@@ -2,7 +2,7 @@
 /**
  * The working directory: reports, backups and logs.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * guessable names. Served over HTTP they are a free copy of a shop's
  * editorial work, and nobody would ever find out it had been taken.
  */
-final class Dahu_Product_Import_Workspace {
+final class Ubac_Import_Workspace {
 
 	/**
 	 * Absolute path, no trailing slash.
@@ -28,7 +28,7 @@ final class Dahu_Product_Import_Workspace {
 	/**
 	 * Validates and prepares the directory.
 	 *
-	 * @param string $dir Absolute path; empty means $HOME/dahu-product-import.
+	 * @param string $dir Absolute path; empty means $HOME/ubac-import.
 	 * @throws RuntimeException Invalid, unreachable or web-exposed directory.
 	 */
 	public function __construct( $dir ) {
@@ -43,7 +43,7 @@ final class Dahu_Product_Import_Workspace {
 				throw new RuntimeException( esc_html( __( 'The HOME variable is not set: pass --dir=<absolute path>.', 'ubac-import' ) ) );
 			}
 
-			$dir = rtrim( $home, '/' ) . '/dahu-product-import';
+			$dir = rtrim( $home, '/' ) . '/ubac-import';
 		}
 
 		if ( 0 !== strpos( $dir, '/' ) || false !== strpos( $dir, '..' ) ) {

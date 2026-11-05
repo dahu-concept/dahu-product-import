@@ -2,7 +2,7 @@
 /**
  * Tracing a value through the whole chain, read-only.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
  * translated at all, and a report where the headings follow the admin language
  * while the measurements do not is harder to read than one in plain English.
  */
-final class Dahu_Product_Import_Diagnostics {
+final class Ubac_Import_Diagnostics {
 
 	/**
 	 * Traces the fields of the given products.
@@ -43,9 +43,9 @@ final class Dahu_Product_Import_Diagnostics {
 		$rows = array();
 
 		if ( $file ) {
-			foreach ( Dahu_Product_Import_CSV::read( $file )['rows'] as $row ) {
-				if ( isset( $row[ Dahu_Product_Import_Fields::COLUMN_ID ] ) ) {
-					$rows[ (int) trim( $row[ Dahu_Product_Import_Fields::COLUMN_ID ] ) ] = $row;
+			foreach ( Ubac_Import_CSV::read( $file )['rows'] as $row ) {
+				if ( isset( $row[ Ubac_Import_Fields::COLUMN_ID ] ) ) {
+					$rows[ (int) trim( $row[ Ubac_Import_Fields::COLUMN_ID ] ) ] = $row;
 				}
 			}
 		}
@@ -81,7 +81,7 @@ final class Dahu_Product_Import_Diagnostics {
 
 			$clean = 0;
 
-			foreach ( Dahu_Product_Import_Fields::all() as $column => $field ) {
+			foreach ( Ubac_Import_Fields::all() as $column => $field ) {
 				$clean += self::trace_field( $out, $post, $id, $column, $field, $rows, $separator );
 			}
 
@@ -116,8 +116,8 @@ final class Dahu_Product_Import_Diagnostics {
 
 		$steps = array( '1 site' => $site );
 
-		$steps['2 export'] = Dahu_Product_Import_Exporter::cell( $post, $field );
-		$steps['3 csv']    = Dahu_Product_Import_CSV::round_trip( $steps['2 export'], $separator );
+		$steps['2 export'] = Ubac_Import_Exporter::cell( $post, $field );
+		$steps['3 csv']    = Ubac_Import_CSV::round_trip( $steps['2 export'], $separator );
 
 		if ( isset( $rows[ $id ][ $column ] ) ) {
 			$steps['4 file'] = (string) $rows[ $id ][ $column ];
@@ -125,10 +125,10 @@ final class Dahu_Product_Import_Diagnostics {
 
 		$last             = end( $steps );
 		$steps['5 trim']  = trim( $last );
-		$steps['6 clean'] = Dahu_Product_Import_Sanitize::clean( $steps['5 trim'], $field['nature'] );
+		$steps['6 clean'] = Ubac_Import_Sanitize::clean( $steps['5 trim'], $field['nature'] );
 
-		$writes = ! Dahu_Product_Import_Sanitize::unchanged( $site, $last, $steps['6 clean'], $field['nature'] );
-		$broken = '' !== $site && ! Dahu_Product_Import_Sanitize::same( $site, $steps['6 clean'] );
+		$writes = ! Ubac_Import_Sanitize::unchanged( $site, $last, $steps['6 clean'], $field['nature'] );
+		$broken = '' !== $site && ! Ubac_Import_Sanitize::same( $site, $steps['6 clean'] );
 
 		if ( ! $writes && ! $broken ) {
 			return 1;
@@ -171,12 +171,12 @@ final class Dahu_Product_Import_Diagnostics {
 			return 0;
 		}
 
-		$column = Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES;
-		$site   = Dahu_Product_Import_Attributes::to_cell( Dahu_Product_Import_Attributes::pairs( $product ) );
+		$column = Ubac_Import_Fields::COLUMN_ATTRIBUTES;
+		$site   = Ubac_Import_Attributes::to_cell( Ubac_Import_Attributes::pairs( $product ) );
 
 		$steps             = array( '1 site' => $site );
 		$steps['2 export'] = $site;
-		$steps['3 csv']    = Dahu_Product_Import_CSV::round_trip( $steps['2 export'], $separator );
+		$steps['3 csv']    = Ubac_Import_CSV::round_trip( $steps['2 export'], $separator );
 
 		if ( isset( $rows[ $id ][ $column ] ) ) {
 			$steps['4 file'] = (string) $rows[ $id ][ $column ];
@@ -184,8 +184,8 @@ final class Dahu_Product_Import_Diagnostics {
 
 		$last             = end( $steps );
 		$steps['5 trim']  = trim( $last );
-		$steps['6 pairs'] = Dahu_Product_Import_Attributes::to_cell(
-			Dahu_Product_Import_Attributes::from_cell( $steps['5 trim'], $product )['pairs']
+		$steps['6 pairs'] = Ubac_Import_Attributes::to_cell(
+			Ubac_Import_Attributes::from_cell( $steps['5 trim'], $product )['pairs']
 		);
 
 		if ( $steps['6 pairs'] === $site ) {
@@ -244,11 +244,11 @@ final class Dahu_Product_Import_Diagnostics {
 				strlen( $a ),
 				strlen( $b ),
 				$at,
-				Dahu_Product_Import_Sanitize::same( $a, $b ) ? ' (line endings or edges only)' : ''
+				Ubac_Import_Sanitize::same( $a, $b ) ? ' (line endings or edges only)' : ''
 			);
 
-			$out[] = '      before: ' . Dahu_Product_Import_Sanitize::around( $a, $at );
-			$out[] = '      after : ' . Dahu_Product_Import_Sanitize::around( $b, $at );
+			$out[] = '      before: ' . Ubac_Import_Sanitize::around( $a, $at );
+			$out[] = '      after : ' . Ubac_Import_Sanitize::around( $b, $at );
 		}
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * Writing the spreadsheet from the site.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -19,21 +19,21 @@ defined( 'ABSPATH' ) || exit;
  * importing without editing anything must write NOTHING. Every comparison
  * rule in the sanitizer exists to keep that true.
  */
-final class Dahu_Product_Import_Exporter {
+final class Ubac_Import_Exporter {
 
 	/**
 	 * Working directory.
 	 *
-	 * @var Dahu_Product_Import_Workspace
+	 * @var Ubac_Import_Workspace
 	 */
 	private $workspace;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param Dahu_Product_Import_Workspace $workspace Working directory.
+	 * @param Ubac_Import_Workspace $workspace Working directory.
 	 */
-	public function __construct( Dahu_Product_Import_Workspace $workspace ) {
+	public function __construct( Ubac_Import_Workspace $workspace ) {
 		$this->workspace = $workspace;
 	}
 
@@ -81,8 +81,8 @@ final class Dahu_Product_Import_Exporter {
 			)
 		);
 
-		$columns = Dahu_Product_Import_Fields::columns();
-		$fields  = Dahu_Product_Import_Fields::all();
+		$columns = Ubac_Import_Fields::columns();
+		$fields  = Ubac_Import_Fields::all();
 		$rows    = array( $columns );
 
 		/*
@@ -104,22 +104,22 @@ final class Dahu_Product_Import_Exporter {
 			$terms   = wp_get_post_terms( $id, 'product_cat', array( 'fields' => 'names' ) );
 
 			$row = array(
-				Dahu_Product_Import_Fields::COLUMN_ID       => (string) $id,
-				Dahu_Product_Import_Fields::COLUMN_SKU      => $product ? (string) $product->get_sku() : '',
-				Dahu_Product_Import_Fields::COLUMN_SLUG     => rawurldecode( $post->post_name ),
-				Dahu_Product_Import_Fields::COLUMN_TYPE     => $product ? $product->get_type() : '',
-				Dahu_Product_Import_Fields::COLUMN_CATEGORY => is_wp_error( $terms ) ? '' : implode( ' | ', $terms ),
+				Ubac_Import_Fields::COLUMN_ID       => (string) $id,
+				Ubac_Import_Fields::COLUMN_SKU      => $product ? (string) $product->get_sku() : '',
+				Ubac_Import_Fields::COLUMN_SLUG     => rawurldecode( $post->post_name ),
+				Ubac_Import_Fields::COLUMN_TYPE     => $product ? $product->get_type() : '',
+				Ubac_Import_Fields::COLUMN_CATEGORY => is_wp_error( $terms ) ? '' : implode( ' | ', $terms ),
 			);
 
 			foreach ( $fields as $column => $field ) {
 				$row[ $column ] = self::cell( $post, $field );
 			}
 
-			$row[ Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES ] = $product
-				? Dahu_Product_Import_Attributes::to_cell( Dahu_Product_Import_Attributes::pairs( $product ) )
+			$row[ Ubac_Import_Fields::COLUMN_ATTRIBUTES ] = $product
+				? Ubac_Import_Attributes::to_cell( Ubac_Import_Attributes::pairs( $product ) )
 				: '';
 
-			foreach ( $product ? Dahu_Product_Import_Attributes::split( $product )['kept'] : array() as $attribute ) {
+			foreach ( $product ? Ubac_Import_Attributes::split( $product )['kept'] : array() as $attribute ) {
 
 				if ( ! $attribute instanceof WC_Product_Attribute ) {
 					continue;
@@ -144,7 +144,7 @@ final class Dahu_Product_Import_Exporter {
 		}
 
 		return array(
-			'path'         => $this->workspace->write( $name, Dahu_Product_Import_CSV::write( $rows, $separator ) ),
+			'path'         => $this->workspace->write( $name, Ubac_Import_CSV::write( $rows, $separator ) ),
 			'products'     => count( $ids ),
 			'out_of_scope' => array_map( 'array_keys', $out_of_scope ),
 		);

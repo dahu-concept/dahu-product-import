@@ -1,4 +1,4 @@
-# Dahu Product Import
+# Ubac Product Import
 
 Edit WooCommerce product text in a spreadsheet and import it back, with a dry
 run that shows every change before anything is written, and a rollback.
@@ -44,7 +44,7 @@ Plus whatever your theme declares.
 ## Declaring your own fields
 
 ```php
-add_filter( 'dahu_product_import_fields', function ( $fields ) {
+add_filter( 'ubac_import_fields', function ( $fields ) {
 	$fields['subtitle'] = array(
 		'target' => '_my_theme_subtitle',
 		'nature' => 'text',
@@ -97,9 +97,9 @@ belongs to output.
 
 | Hook | Kind | Purpose |
 |---|---|---|
-| `dahu_product_import_fields` | filter | Declare columns |
-| `dahu_product_import_excluded_product_types` | filter | Product types to leave to another tool; their rows are reported as rejected, not silently skipped |
-| `dahu_product_import_plan_row` | action | Add a write that follows from the row rather than from a column of its own. Receives `&$item, $row, $id, $wanted`; append to `$item['changes']` for the report and `$item['values']` for the write. Must not touch the database — it runs during the dry run too |
+| `ubac_import_fields` | filter | Declare columns |
+| `ubac_import_excluded_product_types` | filter | Product types to leave to another tool; their rows are reported as rejected, not silently skipped |
+| `ubac_import_plan_row` | action | Add a write that follows from the row rather than from a column of its own. Receives `&$item, $row, $id, $wanted`; append to `$item['changes']` for the report and `$item['values']` for the write. Must not touch the database — it runs during the dry run too |
 
 ## The round trip
 

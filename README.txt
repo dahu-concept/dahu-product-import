@@ -1,5 +1,5 @@
 === Ubac Product Import ===
-Contributors: dahuconcept
+Contributors: ubacconcept
 Tags: woocommerce, products, csv, import, export
 Requires at least: 6.0
 Tested up to: 7.1
@@ -17,7 +17,7 @@ week of work and a week of mistakes. A spreadsheet is the right tool for it —
 one row per product, one column per field, find and replace, a colleague
 reviewing it.
 
-Dahu Product Import closes the loop. It writes the spreadsheet from your site,
+Ubac Product Import closes the loop. It writes the spreadsheet from your site,
 reads it back, and tells you exactly what it would change before changing
 anything.
 
@@ -73,7 +73,7 @@ Your theme's own fields are declared with a filter, and then behave exactly
 like the built-in ones — in the export, the dry run, the import and the
 rollback:
 
-`add_filter( 'dahu_product_import_fields', function ( $fields ) {
+`add_filter( 'ubac_import_fields', function ( $fields ) {
     $fields['subtitle'] = array(
         'target' => '_my_theme_subtitle',
         'nature' => 'text',
@@ -119,7 +119,7 @@ have.
 The working directory holding reports, backups and logs must sit **outside any
 web root** — the plugin refuses one inside, because a backup holds the previous
 text of every product it touched under a guessable file name. It defaults to
-`$HOME/dahu-product-import`.
+`$HOME/ubac-import`.
 
 == Frequently Asked Questions ==
 

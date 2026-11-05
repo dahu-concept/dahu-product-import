@@ -2,7 +2,7 @@
 /**
  * Planning: what an import would write, worked out without writing anything.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Nothing here touches the database.
  */
-final class Dahu_Product_Import_Planner {
+final class Ubac_Import_Planner {
 
 	/**
 	 * Builds the plan: per row, a verdict, the differences, and the values.
@@ -32,15 +32,15 @@ final class Dahu_Product_Import_Planner {
 	 */
 	public function plan( $path ) {
 
-		$csv   = Dahu_Product_Import_CSV::read( $path );
+		$csv   = Ubac_Import_CSV::read( $path );
 		$items = array();
 		$ids    = array();
 
 		// Ids seen on more than one row: the file contradicts itself about a
 		// product, and guessing which row wins is not this plugin's business.
 		foreach ( $csv['rows'] as $number => $row ) {
-			if ( isset( $row[ Dahu_Product_Import_Fields::COLUMN_ID ] ) ) {
-				$ids[ trim( $row[ Dahu_Product_Import_Fields::COLUMN_ID ] ) ][] = $number;
+			if ( isset( $row[ Ubac_Import_Fields::COLUMN_ID ] ) ) {
+				$ids[ trim( $row[ Ubac_Import_Fields::COLUMN_ID ] ) ][] = $number;
 			}
 		}
 
@@ -48,8 +48,8 @@ final class Dahu_Product_Import_Planner {
 
 			$item = array(
 				'line'     => $number,
-				'id'       => isset( $row[ Dahu_Product_Import_Fields::COLUMN_ID ] ) ? trim( $row[ Dahu_Product_Import_Fields::COLUMN_ID ] ) : '',
-				'slug'     => isset( $row[ Dahu_Product_Import_Fields::COLUMN_SLUG ] ) ? trim( $row[ Dahu_Product_Import_Fields::COLUMN_SLUG ] ) : '',
+				'id'       => isset( $row[ Ubac_Import_Fields::COLUMN_ID ] ) ? trim( $row[ Ubac_Import_Fields::COLUMN_ID ] ) : '',
+				'slug'     => isset( $row[ Ubac_Import_Fields::COLUMN_SLUG ] ) ? trim( $row[ Ubac_Import_Fields::COLUMN_SLUG ] ) : '',
 				'verdict'  => 'rejected',
 				'reasons'  => array(),
 				'warnings' => array(),
@@ -160,7 +160,7 @@ final class Dahu_Product_Import_Planner {
 		 * @param int   $id     Product id.
 		 * @param array $wanted Cleaned values, by target.
 		 */
-		do_action_ref_array( 'dahu_product_import_plan_row', array( &$item, $row, $id, $wanted ) );
+		do_action_ref_array( 'ubac_import_plan_row', array( &$item, $row, $id, $wanted ) );
 
 		$item['verdict'] = $item['changes'] ? 'update' : 'identical';
 	}
@@ -208,7 +208,7 @@ final class Dahu_Product_Import_Planner {
 			return null;
 		}
 
-		$excluded = Dahu_Product_Import_Fields::excluded_product_types();
+		$excluded = Ubac_Import_Fields::excluded_product_types();
 
 		if ( $excluded ) {
 
@@ -263,17 +263,17 @@ final class Dahu_Product_Import_Planner {
 
 		$wanted = array();
 
-		foreach ( Dahu_Product_Import_Fields::all() as $column => $field ) {
+		foreach ( Ubac_Import_Fields::all() as $column => $field ) {
 
 			$raw   = trim( (string) ( isset( $row[ $column ] ) ? $row[ $column ] : '' ) );
-			$value = Dahu_Product_Import_Sanitize::clean( $raw, $field['nature'] );
+			$value = Ubac_Import_Sanitize::clean( $raw, $field['nature'] );
 
 			if ( 'url' === $field['nature'] && '' !== $raw && '' === $value ) {
 				$item['reasons'][] = sprintf(
 					/* translators: 1: column name, 2: the cell contents. */
 					__( '%1$s: invalid URL "%2$s"', 'ubac-import' ),
 					$column,
-					Dahu_Product_Import_Sanitize::preview( $raw )
+					Ubac_Import_Sanitize::preview( $raw )
 				);
 				continue;
 			}
@@ -351,11 +351,11 @@ final class Dahu_Product_Import_Planner {
 				$current = metadata_exists( 'post', $id, $target ) ? (string) get_post_meta( $id, $target, true ) : '';
 			}
 
-			if ( Dahu_Product_Import_Sanitize::unchanged( $current, $want['raw'], $want['value'], $want['nature'] ) ) {
+			if ( Ubac_Import_Sanitize::unchanged( $current, $want['raw'], $want['value'], $want['nature'] ) ) {
 				continue;
 			}
 
-			$lost = Dahu_Product_Import_Sanitize::losses( $want['raw'], $want['value'], $want['nature'] );
+			$lost = Ubac_Import_Sanitize::losses( $want['raw'], $want['value'], $want['nature'] );
 
 			if ( $lost ) {
 				$item['warnings'][] = sprintf(
@@ -376,8 +376,8 @@ final class Dahu_Product_Import_Planner {
 				'column' => $want['column'],
 				'target' => $target,
 				'action' => $action,
-				'before' => Dahu_Product_Import_Sanitize::preview( $current ),
-				'after'  => Dahu_Product_Import_Sanitize::preview( $want['value'] ),
+				'before' => Ubac_Import_Sanitize::preview( $current ),
+				'after'  => Ubac_Import_Sanitize::preview( $want['value'] ),
 			);
 
 			if ( '' !== $field ) {
@@ -416,7 +416,7 @@ final class Dahu_Product_Import_Planner {
 	 */
 	private function plan_sku( array $row, array &$item, $id ) {
 
-		$wanted  = trim( (string) ( isset( $row[ Dahu_Product_Import_Fields::COLUMN_SKU ] ) ? $row[ Dahu_Product_Import_Fields::COLUMN_SKU ] : '' ) );
+		$wanted  = trim( (string) ( isset( $row[ Ubac_Import_Fields::COLUMN_SKU ] ) ? $row[ Ubac_Import_Fields::COLUMN_SKU ] : '' ) );
 		$current = trim( (string) get_post_meta( $id, '_sku', true ) );
 
 		if ( '' === $wanted ) {
@@ -454,11 +454,11 @@ final class Dahu_Product_Import_Planner {
 		}
 
 		$item['changes'][] = array(
-			'column' => Dahu_Product_Import_Fields::COLUMN_SKU,
+			'column' => Ubac_Import_Fields::COLUMN_SKU,
 			'target' => '_sku',
 			'action' => '' === $current ? 'add' : 'change',
-			'before' => Dahu_Product_Import_Sanitize::preview( $current ),
-			'after'  => Dahu_Product_Import_Sanitize::preview( $wanted ),
+			'before' => Ubac_Import_Sanitize::preview( $current ),
+			'after'  => Ubac_Import_Sanitize::preview( $wanted ),
 		);
 
 		$item['values']['sku'] = $wanted;
@@ -481,7 +481,7 @@ final class Dahu_Product_Import_Planner {
 	 */
 	private function plan_attributes( array $row, array &$item, $id ) {
 
-		$column = Dahu_Product_Import_Fields::COLUMN_ATTRIBUTES;
+		$column = Ubac_Import_Fields::COLUMN_ATTRIBUTES;
 		$raw    = (string) ( isset( $row[ $column ] ) ? $row[ $column ] : '' );
 
 		if ( ! function_exists( 'wc_get_product' ) ) {
@@ -508,14 +508,14 @@ final class Dahu_Product_Import_Planner {
 			return;
 		}
 
-		$current = Dahu_Product_Import_Attributes::pairs( $product );
-		$wanted  = Dahu_Product_Import_Attributes::from_cell( $raw, $product );
+		$current = Ubac_Import_Attributes::pairs( $product );
+		$wanted  = Ubac_Import_Attributes::from_cell( $raw, $product );
 
 		foreach ( $wanted['warnings'] as $warning ) {
 			$item['warnings'][] = $warning;
 		}
 
-		if ( Dahu_Product_Import_Attributes::to_cell( $current ) === Dahu_Product_Import_Attributes::to_cell( $wanted['pairs'] ) ) {
+		if ( Ubac_Import_Attributes::to_cell( $current ) === Ubac_Import_Attributes::to_cell( $wanted['pairs'] ) ) {
 			return;
 		}
 
@@ -529,8 +529,8 @@ final class Dahu_Product_Import_Planner {
 			'column' => $column,
 			'target' => 'local attributes',
 			'action' => $action,
-			'before' => Dahu_Product_Import_Sanitize::preview( Dahu_Product_Import_Attributes::to_cell( $current ) ),
-			'after'  => Dahu_Product_Import_Sanitize::preview( Dahu_Product_Import_Attributes::to_cell( $wanted['pairs'] ) ),
+			'before' => Ubac_Import_Sanitize::preview( Ubac_Import_Attributes::to_cell( $current ) ),
+			'after'  => Ubac_Import_Sanitize::preview( Ubac_Import_Attributes::to_cell( $wanted['pairs'] ) ),
 		);
 
 		$item['values']['attributes'] = $wanted['pairs'];

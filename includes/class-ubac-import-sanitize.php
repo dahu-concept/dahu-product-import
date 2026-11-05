@@ -2,7 +2,7 @@
 /**
  * Cleaning a cell, and deciding whether it differs from the site.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * UNCHANGED is what stops an import from rewriting a field with a normalised
  * version of what was already there, which is a loss dressed up as a no-op.
  */
-final class Dahu_Product_Import_Sanitize {
+final class Ubac_Import_Sanitize {
 
 	/**
 	 * The kinds of cleaning a field can ask for.
@@ -330,7 +330,7 @@ final class Dahu_Product_Import_Sanitize {
 		);
 
 		$value = trim( $value );
-		$limit = Dahu_Product_Import_Fields::PREVIEW;
+		$limit = Ubac_Import_Fields::PREVIEW;
 
 		return mb_strlen( $value ) > $limit ? mb_substr( $value, 0, $limit ) . '…' : $value;
 	}

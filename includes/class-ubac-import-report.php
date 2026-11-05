@@ -2,7 +2,7 @@
 /**
  * The report.
  *
- * @package DahuProductImport
+ * @package UbacImport
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
  * the spreadsheet shows up as two hundred erasures in one line), and rejected
  * rows with their reasons.
  */
-final class Dahu_Product_Import_Report {
+final class Ubac_Import_Report {
 
 	/**
 	 * Builds the text report.
