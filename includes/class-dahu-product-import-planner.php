@@ -66,7 +66,7 @@ final class Dahu_Product_Import_Planner {
 			} elseif ( isset( $ids[ $item['id'] ] ) && count( $ids[ $item['id'] ] ) > 1 ) {
 				$item['reasons'][] = sprintf(
 					/* translators: %s: comma-separated line numbers. */
-					__( 'this product id appears on several lines (%s)', 'dahu-product-import' ),
+					__( 'this product id appears on several lines (%s)', 'ubac-import' ),
 					implode( ', ', $ids[ $item['id'] ] )
 				);
 			} else {
@@ -176,7 +176,7 @@ final class Dahu_Product_Import_Planner {
 		if ( ! ctype_digit( $item['id'] ) || 0 === (int) $item['id'] ) {
 			$item['reasons'][] = sprintf(
 				/* translators: %s: the cell contents. */
-				__( 'invalid product id "%s"', 'dahu-product-import' ),
+				__( 'invalid product id "%s"', 'ubac-import' ),
 				$item['id']
 			);
 			return null;
@@ -186,14 +186,14 @@ final class Dahu_Product_Import_Planner {
 		$post = get_post( $id );
 
 		if ( ! $post ) {
-			$item['reasons'][] = __( 'no such product on this site (this plugin never creates one)', 'dahu-product-import' );
+			$item['reasons'][] = __( 'no such product on this site (this plugin never creates one)', 'ubac-import' );
 			return null;
 		}
 
 		if ( 'product' !== $post->post_type ) {
 			$item['reasons'][] = sprintf(
 				/* translators: %s: post type. */
-				__( 'that id belongs to a "%s", not to a product', 'dahu-product-import' ),
+				__( 'that id belongs to a "%s", not to a product', 'ubac-import' ),
 				$post->post_type
 			);
 			return null;
@@ -202,7 +202,7 @@ final class Dahu_Product_Import_Planner {
 		if ( in_array( $post->post_status, array( 'trash', 'auto-draft' ), true ) ) {
 			$item['reasons'][] = sprintf(
 				/* translators: %s: post status. */
-				__( 'the product is in "%s" status', 'dahu-product-import' ),
+				__( 'the product is in "%s" status', 'ubac-import' ),
 				$post->post_status
 			);
 			return null;
@@ -218,7 +218,7 @@ final class Dahu_Product_Import_Planner {
 			if ( $hit ) {
 				$item['reasons'][] = sprintf(
 					/* translators: %s: product type slug. */
-					__( 'products of type "%s" are excluded on this site, so this row is left to whatever manages them', 'dahu-product-import' ),
+					__( 'products of type "%s" are excluded on this site, so this row is left to whatever manages them', 'ubac-import' ),
 					reset( $hit )
 				);
 				return null;
@@ -236,7 +236,7 @@ final class Dahu_Product_Import_Planner {
 		if ( $post->post_name !== $item['slug'] && rawurldecode( $post->post_name ) !== $item['slug'] ) {
 			$item['reasons'][] = sprintf(
 				/* translators: 1: slug on the site, 2: slug in the file. */
-				__( 'the site\'s slug "%1$s" differs from the file\'s "%2$s": the id may no longer mean the same product', 'dahu-product-import' ),
+				__( 'the site\'s slug "%1$s" differs from the file\'s "%2$s": the id may no longer mean the same product', 'ubac-import' ),
 				rawurldecode( $post->post_name ),
 				$item['slug']
 			);
@@ -271,7 +271,7 @@ final class Dahu_Product_Import_Planner {
 			if ( 'url' === $field['nature'] && '' !== $raw && '' === $value ) {
 				$item['reasons'][] = sprintf(
 					/* translators: 1: column name, 2: the cell contents. */
-					__( '%1$s: invalid URL "%2$s"', 'dahu-product-import' ),
+					__( '%1$s: invalid URL "%2$s"', 'ubac-import' ),
 					$column,
 					Dahu_Product_Import_Sanitize::preview( $raw )
 				);
@@ -281,7 +281,7 @@ final class Dahu_Product_Import_Planner {
 			if ( $field['max_length'] && mb_strlen( $value ) > $field['max_length'] ) {
 				$item['reasons'][] = sprintf(
 					/* translators: 1: column name, 2: length found, 3: maximum allowed. */
-					__( '%1$s: %2$d characters, maximum %3$d (never truncated)', 'dahu-product-import' ),
+					__( '%1$s: %2$d characters, maximum %3$d (never truncated)', 'ubac-import' ),
 					$column,
 					mb_strlen( $value ),
 					$field['max_length']
@@ -292,7 +292,7 @@ final class Dahu_Product_Import_Planner {
 			if ( $field['required'] && '' === $value ) {
 				$item['reasons'][] = sprintf(
 					/* translators: %s: column name. */
-					__( '%s is empty, and that field cannot be cleared', 'dahu-product-import' ),
+					__( '%s is empty, and that field cannot be cleared', 'ubac-import' ),
 					$column
 				);
 				continue;
@@ -311,7 +311,7 @@ final class Dahu_Product_Import_Planner {
 				if ( ! $referenced || 'product' !== $referenced->post_type ) {
 					$item['warnings'][] = sprintf(
 						/* translators: 1: column name, 2: the cell contents. */
-						__( '%1$s: "%2$s" is not a product on this site; the field is left unchanged', 'dahu-product-import' ),
+						__( '%1$s: "%2$s" is not a product on this site; the field is left unchanged', 'ubac-import' ),
 						$column,
 						$raw
 					);
@@ -360,7 +360,7 @@ final class Dahu_Product_Import_Planner {
 			if ( $lost ) {
 				$item['warnings'][] = sprintf(
 					/* translators: 1: column name, 2: what the cleaning changes. */
-					__( '%1$s: cleaning on write changes the file\'s value (%2$s)', 'dahu-product-import' ),
+					__( '%1$s: cleaning on write changes the file\'s value (%2$s)', 'ubac-import' ),
 					$want['column'],
 					$lost
 				);
@@ -424,7 +424,7 @@ final class Dahu_Product_Import_Planner {
 			if ( '' !== $current ) {
 				$item['warnings'][] = sprintf(
 					/* translators: %s: the SKU on the site. */
-					__( 'sku: the cell is empty, so the site\'s SKU "%s" is KEPT (an empty cell never clears a SKU)', 'dahu-product-import' ),
+					__( 'sku: the cell is empty, so the site\'s SKU "%s" is KEPT (an empty cell never clears a SKU)', 'ubac-import' ),
 					$current
 				);
 			}
@@ -444,7 +444,7 @@ final class Dahu_Product_Import_Planner {
 
 			$item['reasons'][] = sprintf(
 				/* translators: 1: SKU, 2: product id holding it, 3: that product's slug. */
-				__( 'sku: "%1$s" is already held by #%2$d "%3$s" on this site — row refused, nothing is written for this product', 'dahu-product-import' ),
+				__( 'sku: "%1$s" is already held by #%2$d "%3$s" on this site — row refused, nothing is written for this product', 'ubac-import' ),
 				$wanted,
 				$holder,
 				$other ? $other->post_name : '?'
@@ -489,7 +489,7 @@ final class Dahu_Product_Import_Planner {
 			if ( '' !== trim( $raw ) ) {
 				$item['warnings'][] = sprintf(
 					/* translators: %s: column name. */
-					__( '%s: WooCommerce is not active, so this column is ignored', 'dahu-product-import' ),
+					__( '%s: WooCommerce is not active, so this column is ignored', 'ubac-import' ),
 					$column
 				);
 			}
@@ -502,7 +502,7 @@ final class Dahu_Product_Import_Planner {
 		if ( ! $product ) {
 			$item['warnings'][] = sprintf(
 				/* translators: %s: column name. */
-				__( '%s: WooCommerce cannot read this product, so this column is ignored', 'dahu-product-import' ),
+				__( '%s: WooCommerce cannot read this product, so this column is ignored', 'ubac-import' ),
 				$column
 			);
 			return;

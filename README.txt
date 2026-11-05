@@ -1,4 +1,4 @@
-=== Dahu Product Import ===
+=== Ubac Product Import ===
 Contributors: dahuconcept
 Tags: woocommerce, products, csv, import, export
 Requires at least: 6.0

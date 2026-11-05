@@ -44,7 +44,7 @@ final class Dahu_Product_Import_CSV {
 
 		if ( ! $handle ) {
 			/* translators: %s: file path. */
-			throw new RuntimeException( esc_html( sprintf( __( 'Cannot read: %s', 'dahu-product-import' ), $path ) ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot read: %s', 'ubac-import' ), $path ) ) );
 		}
 
 		try {
@@ -75,7 +75,7 @@ final class Dahu_Product_Import_CSV {
 					if ( ! mb_check_encoding( $cell, 'UTF-8' ) ) {
 						throw new RuntimeException( esc_html( sprintf(
 								/* translators: %d: spreadsheet line number. */
-								__( 'Line %d: the text is not UTF-8. Save the spreadsheet as "CSV UTF-8", not as plain "CSV".', 'dahu-product-import' ),
+								__( 'Line %d: the text is not UTF-8. Save the spreadsheet as "CSV UTF-8", not as plain "CSV".', 'ubac-import' ),
 								$number
 							) ) );
 					}
@@ -101,7 +101,7 @@ final class Dahu_Product_Import_CSV {
 
 		if ( null === $header ) {
 			/* translators: %s: file path. */
-			throw new RuntimeException( esc_html( sprintf( __( 'The file is empty: %s', 'dahu-product-import' ), $path ) ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'The file is empty: %s', 'ubac-import' ), $path ) ) );
 		}
 
 		$expected = Dahu_Product_Import_Fields::columns();
@@ -110,7 +110,7 @@ final class Dahu_Product_Import_CSV {
 		if ( $missing ) {
 			throw new RuntimeException( esc_html( sprintf(
 					/* translators: 1: comma-separated column names, 2: the detected separator. */
-					__( 'Columns missing from the header: %1$s (separator detected: "%2$s").', 'dahu-product-import' ),
+					__( 'Columns missing from the header: %1$s (separator detected: "%2$s").', 'ubac-import' ),
 					implode( ', ', $missing ),
 					"\t" === $separator ? 'tab' : $separator
 				) ) );
@@ -121,7 +121,7 @@ final class Dahu_Product_Import_CSV {
 		if ( $duplicates ) {
 			throw new RuntimeException( esc_html( sprintf(
 					/* translators: %s: comma-separated column names. */
-					__( 'Duplicate columns in the header: %s', 'dahu-product-import' ),
+					__( 'Duplicate columns in the header: %s', 'ubac-import' ),
 					implode( ', ', array_unique( $duplicates ) )
 				) ) );
 		}
@@ -140,7 +140,7 @@ final class Dahu_Product_Import_CSV {
 				$rows[ $number ] = array(
 					'_error' => sprintf(
 						/* translators: 1: cells found, 2: cells expected. */
-						__( '%1$d cell(s) instead of %2$d (an unclosed quote, or a separator inside an unquoted cell?)', 'dahu-product-import' ),
+						__( '%1$d cell(s) instead of %2$d (an unclosed quote, or a separator inside an unquoted cell?)', 'ubac-import' ),
 						count( $row ),
 						count( $header )
 					),
@@ -237,6 +237,6 @@ final class Dahu_Product_Import_CSV {
 
 		return is_array( $row ) && isset( $row[1] )
 			? str_replace( array( "\r\n", "\r" ), "\n", (string) $row[1] )
-			: __( '(unreadable)', 'dahu-product-import' );
+			: __( '(unreadable)', 'ubac-import' );
 	}
 }

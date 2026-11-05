@@ -284,7 +284,7 @@ final class Dahu_Product_Import_Sanitize {
 			if ( $gone > 0 ) {
 				$parts[] = sprintf(
 					/* translators: 1: HTML attribute name, 2: how many were removed. */
-					__( 'attribute %1$s removed x%2$d', 'dahu-product-import' ),
+					__( 'attribute %1$s removed x%2$d', 'ubac-import' ),
 					$name,
 					$gone
 				);
@@ -292,10 +292,10 @@ final class Dahu_Product_Import_Sanitize {
 		}
 
 		if ( strlen( wp_strip_all_tags( $raw ) ) !== strlen( wp_strip_all_tags( $clean ) ) ) {
-			$parts[] = __( 'text changed', 'dahu-product-import' );
+			$parts[] = __( 'text changed', 'ubac-import' );
 		}
 
-		return $parts ? implode( ', ', $parts ) : __( 'HTML normalised', 'dahu-product-import' );
+		return $parts ? implode( ', ', $parts ) : __( 'HTML normalised', 'ubac-import' );
 	}
 
 	/**

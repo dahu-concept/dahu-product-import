@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name:       Dahu Product Import
+ * Plugin Name:       Ubac Product Import
  * Description:       Edit WooCommerce product text in a spreadsheet and import it back: one row per product, a dry run that shows every change before anything is written, and a rollback.
  * Version:           1.1.0
  * Author:            Hugo Vial-Jaime
  * Author URI:        https://dahu-concept.fr
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
- * Text Domain:       dahu-product-import
+ * Text Domain:       ubac-import
  * Domain Path:       /languages
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -96,7 +96,7 @@ add_filter(
 		$page = sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( admin_url( 'tools.php?page=' . DAHU_PRODUCT_IMPORT_SLUG ) ),
-			esc_html__( 'How to use', 'dahu-product-import' )
+			esc_html__( 'How to use', 'ubac-import' )
 		);
 		array_unshift( $links, $page );
 		return $links;
@@ -114,7 +114,7 @@ add_filter(
 		$links[] = sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( 'https://dahu-concept.fr' ),
-			esc_html__( 'Support', 'dahu-product-import' )
+			esc_html__( 'Support', 'ubac-import' )
 		);
 
 		return $links;
@@ -150,8 +150,8 @@ add_action(
 		Dahu_Welcome::register(
 			array(
 				'slug'       => 'dahu-product-import',
-				'name'       => __( 'Product import', 'dahu-product-import' ),
-				'tagline'    => __( 'Brings products in from a file, and says what it changed.', 'dahu-product-import' ),
+				'name'       => __( 'Product import', 'ubac-import' ),
+				'tagline'    => __( 'Brings products in from a file, and says what it changed.', 'ubac-import' ),
 				'file'       => DAHU_PRODUCT_IMPORT_FILE,
 				'version'    => DAHU_PRODUCT_IMPORT_VERSION,
 				'textdomain' => 'dahu-product-import',
@@ -170,24 +170,24 @@ add_action(
 				 * no text domain of its own.
 				 */
 				'strings'    => array(
-					'next'   => __( 'Next', 'dahu-product-import' ),
-					'done'   => __( 'Done', 'dahu-product-import' ),
-					'skip'   => __( 'Skip', 'dahu-product-import' ),
-					'of'     => __( 'of', 'dahu-product-import' ),
-					'denied' => __( 'You are not allowed to view this page.', 'dahu-product-import' ),
+					'next'   => __( 'Next', 'ubac-import' ),
+					'done'   => __( 'Done', 'ubac-import' ),
+					'skip'   => __( 'Skip', 'ubac-import' ),
+					'of'     => __( 'of', 'ubac-import' ),
+					'denied' => __( 'You are not allowed to view this page.', 'ubac-import' ),
 				),
 				'points'     => array(
 				array(
-					'title' => __( 'Dry run first', 'dahu-product-import' ),
-					'text'  => __( 'See what would happen before anything is written.', 'dahu-product-import' ),
+					'title' => __( 'Dry run first', 'ubac-import' ),
+					'text'  => __( 'See what would happen before anything is written.', 'ubac-import' ),
 				),
 				array(
-					'title' => __( 'Line by line', 'dahu-product-import' ),
-					'text'  => __( 'Each row reports created, updated or skipped, with a reason.', 'dahu-product-import' ),
+					'title' => __( 'Line by line', 'ubac-import' ),
+					'text'  => __( 'Each row reports created, updated or skipped, with a reason.', 'ubac-import' ),
 				),
 				array(
-					'title' => __( 'Stops on nonsense', 'dahu-product-import' ),
-					'text'  => __( 'A malformed file is refused, not half-imported.', 'dahu-product-import' ),
+					'title' => __( 'Stops on nonsense', 'ubac-import' ),
+					'text'  => __( 'A malformed file is refused, not half-imported.', 'ubac-import' ),
 				),
 				),
 
@@ -204,18 +204,18 @@ add_action(
 				'tour'        => array(
 					array(
 						'selector' => '.dahu-ui-head__title',
-						'title'    => __( 'Runs from WP-CLI', 'dahu-product-import' ),
-						'text'     => __( 'This screen explains; the work is done from the command line.', 'dahu-product-import' ),
+						'title'    => __( 'Runs from WP-CLI', 'ubac-import' ),
+						'text'     => __( 'This screen explains; the work is done from the command line.', 'ubac-import' ),
 					),
 					array(
 						'selector' => '.dahu-pi-steps',
-						'title'    => __( 'The sequence', 'dahu-product-import' ),
-						'text'     => __( 'Export, dry run, import. Start with the dry run.', 'dahu-product-import' ),
+						'title'    => __( 'The sequence', 'ubac-import' ),
+						'text'     => __( 'Export, dry run, import. Start with the dry run.', 'ubac-import' ),
 					),
 					array(
 						'selector' => '.dahu-pi-columns',
-						'title'    => __( 'Your file\'s columns', 'dahu-product-import' ),
-						'text'     => __( 'The columns this site reads and writes.', 'dahu-product-import' ),
+						'title'    => __( 'Your file\'s columns', 'ubac-import' ),
+						'text'     => __( 'The columns this site reads and writes.', 'ubac-import' ),
 					),
 				),
 			)
