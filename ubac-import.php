@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Ubac Product Import
  * Description:       Edit WooCommerce product text in a spreadsheet and import it back: one row per product, a dry run that shows every change before anything is written, and a rollback.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            Hugo Vial-Jaime
  * Author URI:        https://dahu-concept.fr
  * License:           MIT
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'UBAC_IMPORT_VERSION', '1.1.0' );
+define( 'UBAC_IMPORT_VERSION', '1.1.1' );
 define( 'UBAC_IMPORT_FILE', __FILE__ );
 define( 'UBAC_IMPORT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'UBAC_IMPORT_URL', plugin_dir_url( __FILE__ ) );

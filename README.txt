@@ -4,7 +4,7 @@ Tags: woocommerce, products, csv, import, export
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -168,6 +168,9 @@ Yes — it never reads or writes an order at all, and declares itself compatible
 
 == Changelog ==
 
+= 1.1.1 =
+* Changed: WordPress 6.2 is now the floor. Three extensions of the family need it for prepare()'s %i identifier placeholder, and the family states one floor rather than two because the welcome screen and the shared admin stylesheet are copied byte for byte across it.
+
 = 1.1.0 =
 * The activation screen now opens on the plugin's own mark rather than its initials, and the banner carries the same drawing as a watermark.
 
@@ -178,6 +181,9 @@ Yes — it never reads or writes an order at all, and declares itself compatible
 * First public release.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+WordPress 6.2 is now the floor, in step with the rest of the family. Nothing else changes.
 
 = 1.0.0 =
 First public release.
