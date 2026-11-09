@@ -1,4 +1,4 @@
-=== Ubac Product Import ===
+=== DahuConcept Product Import ===
 Contributors: dahuconcept
 Tags: bulk edit, products, csv, import, export
 Requires at least: 6.2
@@ -17,7 +17,7 @@ week of work and a week of mistakes. A spreadsheet is the right tool for it —
 one row per product, one column per field, find and replace, a colleague
 reviewing it.
 
-Ubac Product Import closes the loop. It writes the spreadsheet from your site,
+DahuConcept Product Import closes the loop. It writes the spreadsheet from your site,
 reads it back, and tells you exactly what it would change before changing
 anything.
 

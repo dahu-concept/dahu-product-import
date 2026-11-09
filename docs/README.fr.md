@@ -1,4 +1,4 @@
-# Ubac Product Import
+# DahuConcept Product Import
 
 Modifier les textes des produits WooCommerce dans un tableur et les réimporter,
 avec une simulation qui montre chaque changement avant toute écriture, et un

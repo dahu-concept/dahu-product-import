@@ -2,13 +2,13 @@
 # This file is distributed under the MIT licence.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ubac Product Import\n"
+"Project-Id-Version: DahuConcept Product Import\n"
 "Report-Msgid-Bugs-To: https://dahu-concept.fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2026-10-24 10:16+0000\n"
-"X-Domain: ubac-import\n"
+"PO-Revision-Date: 2026-11-09 07:28+0000\n"
+"X-Domain: dahuconcept-product-import\n"
 
 #. translators: 1: line number, 2: product id, 3: slug, 4: the reasons. */
 #: includes/class-ubac-import-report.php:159
@@ -16,7 +16,7 @@ msgid "  line %1$d — #%2$s \"%3$s\": %4$s"
 msgstr ""
 
 #. translators: 1: cells found, 2: cells expected. */
-#: includes/class-ubac-import-csv.php:149
+#: includes/class-ubac-import-csv.php:143
 msgid "%1$d cell(s) instead of %2$d (an unclosed quote, or a separator inside an unquoted cell?)"
 msgstr ""
 
@@ -111,7 +111,7 @@ msgstr ""
 msgid "%s: WooCommerce is not active, so this column is ignored"
 msgstr ""
 
-#: includes/class-ubac-import-csv.php:246
+#: includes/class-ubac-import-csv.php:240
 msgid "(unreadable)"
 msgstr ""
 
@@ -129,11 +129,11 @@ msgstr ""
 msgid "=== Summary: %1$d row(s); %2$d product(s) to update; %3$d identical; %4$d rejected; %5$d field erasure(s)"
 msgstr ""
 
-#: ubac-import.php:191
+#: dahuconcept-product-import.php:190
 msgid "A malformed file is refused, not half-imported."
 msgstr ""
 
-#: includes/class-ubac-import-workspace.php:278
+#: includes/class-ubac-import-workspace.php:274
 msgid "An import or a rollback is already running (import.lock)."
 msgstr ""
 
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Backup: %s"
 msgstr ""
 
-#: ubac-import.php:155 includes/class-ubac-import-admin.php:105
+#: dahuconcept-product-import.php:154 includes/class-ubac-import-admin.php:105
 msgid "Brings products in from a file, and says what it changed."
 msgstr ""
 
@@ -153,7 +153,7 @@ msgstr ""
 msgid "Cannot create the working directory: %s"
 msgstr ""
 
-#: includes/class-ubac-import-workspace.php:255
+#: includes/class-ubac-import-workspace.php:251
 msgid "Cannot open: %s"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgstr ""
 msgid "Cannot read: %s"
 msgstr ""
 
-#: includes/class-ubac-import-workspace.php:159
+#: includes/class-ubac-import-workspace.php:157
 msgid "Cannot write: %s"
 msgstr ""
 
@@ -170,7 +170,7 @@ msgid "Column"
 msgstr ""
 
 #. translators: 1: comma-separated column names, 2: the detected separator. */
-#: includes/class-ubac-import-csv.php:116
+#: includes/class-ubac-import-csv.php:113
 msgid "Columns missing from the header: %1$s (separator detected: \"%2$s\")."
 msgstr ""
 
@@ -179,11 +179,11 @@ msgid "Command loaded."
 msgstr ""
 
 #. translators: %s: file name pattern. */
-#: includes/class-ubac-import-workspace.php:235
+#: includes/class-ubac-import-workspace.php:232
 msgid "Could not reserve a file name for %s in the working directory."
 msgstr ""
 
-#: ubac-import.php:175
+#: dahuconcept-product-import.php:174
 msgid "Done"
 msgstr ""
 
@@ -195,7 +195,7 @@ msgstr ""
 msgid "Dry run finished. Nothing was written. Add --execute to apply it."
 msgstr ""
 
-#: ubac-import.php:182
+#: dahuconcept-product-import.php:181
 msgid "Dry run first"
 msgstr ""
 
@@ -204,11 +204,11 @@ msgid "Dry run: the report, and not one write."
 msgstr ""
 
 #. translators: %s: comma-separated column names. */
-#: includes/class-ubac-import-csv.php:129
+#: includes/class-ubac-import-csv.php:124
 msgid "Duplicate columns in the header: %s"
 msgstr ""
 
-#: ubac-import.php:187
+#: dahuconcept-product-import.php:186
 msgid "Each row reports created, updated or skipped, with a reason."
 msgstr ""
 
@@ -225,7 +225,7 @@ msgstr ""
 msgid "Export finished. Nothing was written to the database."
 msgstr ""
 
-#: ubac-import.php:214
+#: dahuconcept-product-import.php:213
 msgid "Export, dry run, import. Start with the dry run."
 msgstr ""
 
@@ -233,7 +233,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: includes/class-ubac-import-workspace.php:186
+#: includes/class-ubac-import-workspace.php:184
 msgid "File not found: %s"
 msgstr ""
 
@@ -249,7 +249,7 @@ msgstr ""
 msgid "HTML normalised"
 msgstr ""
 
-#: ubac-import.php:100
+#: dahuconcept-product-import.php:99
 msgid "How to use"
 msgstr ""
 
@@ -267,11 +267,11 @@ msgid "Key"
 msgstr ""
 
 #. translators: %d: spreadsheet line number. */
-#: includes/class-ubac-import-csv.php:79
+#: includes/class-ubac-import-csv.php:78
 msgid "Line %d: the text is not UTF-8. Save the spreadsheet as \"CSV UTF-8\", not as plain \"CSV\"."
 msgstr ""
 
-#: ubac-import.php:186
+#: dahuconcept-product-import.php:185
 msgid "Line by line"
 msgstr ""
 
@@ -279,11 +279,11 @@ msgstr ""
 msgid "Log: %s"
 msgstr ""
 
-#: ubac-import.php:174
+#: dahuconcept-product-import.php:173
 msgid "Next"
 msgstr ""
 
-#: includes/class-ubac-import-workspace.php:179
+#: includes/class-ubac-import-workspace.php:177
 msgid "No file name given."
 msgstr ""
 
@@ -328,7 +328,7 @@ msgstr ""
 msgid "Product Import"
 msgstr ""
 
-#: ubac-import.php:154 includes/class-ubac-import-admin.php:104
+#: dahuconcept-product-import.php:153 includes/class-ubac-import-admin.php:104
 msgid "Product import"
 msgstr ""
 
@@ -360,11 +360,11 @@ msgstr ""
 msgid "Roll back with: wp product-import rollback --file=%s"
 msgstr ""
 
-#: ubac-import.php:208
+#: dahuconcept-product-import.php:207
 msgid "Runs from WP-CLI"
 msgstr ""
 
-#: ubac-import.php:183
+#: dahuconcept-product-import.php:182
 msgid "See what would happen before anything is written."
 msgstr ""
 
@@ -380,15 +380,15 @@ msgstr ""
 msgid "Site"
 msgstr ""
 
-#: ubac-import.php:176
+#: dahuconcept-product-import.php:175
 msgid "Skip"
 msgstr ""
 
-#: ubac-import.php:190
+#: dahuconcept-product-import.php:189
 msgid "Stops on nonsense"
 msgstr ""
 
-#: ubac-import.php:118
+#: dahuconcept-product-import.php:117
 msgid "Support"
 msgstr ""
 
@@ -400,20 +400,20 @@ msgstr ""
 msgid "The columns of your file"
 msgstr ""
 
-#: ubac-import.php:219
+#: dahuconcept-product-import.php:218
 msgid "The columns this site reads and writes."
 msgstr ""
 
-#: includes/class-ubac-import-csv.php:106
+#: includes/class-ubac-import-csv.php:104
 msgid "The file is empty: %s"
 msgstr ""
 
-#: ubac-import.php:213 includes/class-ubac-import-admin.php:122
+#: dahuconcept-product-import.php:212 includes/class-ubac-import-admin.php:122
 msgid "The sequence"
 msgstr ""
 
 #. translators: %s: the web root that contains it. */
-#: includes/class-ubac-import-workspace.php:70
+#: includes/class-ubac-import-workspace.php:69
 msgid "The working directory is inside a web root (%s): choose one outside it. The backups hold your product text."
 msgstr ""
 
@@ -429,7 +429,7 @@ msgstr ""
 msgid "These depend on what your theme or plugins have declared, so this list is the only accurate one for this site."
 msgstr ""
 
-#: ubac-import.php:209
+#: dahuconcept-product-import.php:208
 msgid "This screen explains; the work is done from the command line."
 msgstr ""
 
@@ -470,7 +470,7 @@ msgstr ""
 msgid "Writes"
 msgstr ""
 
-#: ubac-import.php:178
+#: dahuconcept-product-import.php:177
 msgid "You are not allowed to view this page."
 msgstr ""
 
@@ -478,7 +478,7 @@ msgstr ""
 msgid "You do not have permission to view this page."
 msgstr ""
 
-#: ubac-import.php:218
+#: dahuconcept-product-import.php:217
 msgid "Your file's columns"
 msgstr ""
 
@@ -584,7 +584,7 @@ msgstr ""
 msgid "nothing"
 msgstr ""
 
-#: ubac-import.php:177
+#: dahuconcept-product-import.php:176
 msgid "of"
 msgstr ""
 

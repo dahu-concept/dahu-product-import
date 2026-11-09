@@ -1,4 +1,4 @@
-# Ubac Product Import
+# DahuConcept Product Import
 
 Edit WooCommerce product text in a spreadsheet and import it back, with a dry
 run that shows every change before anything is written, and a rollback.

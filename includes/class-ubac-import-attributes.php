@@ -192,11 +192,11 @@ final class Ubac_Import_Attributes {
 
 			if ( $attribute->is_taxonomy() ) {
 				/* translators: %s: attribute taxonomy name. */
-				$reason = sprintf( __( 'global attribute (taxonomy %s)', 'ubac-import' ), $attribute->get_name() );
+				$reason = sprintf( __( 'global attribute (taxonomy %s)', 'dahuconcept-product-import' ), $attribute->get_name() );
 			} elseif ( $attribute->get_variation() ) {
-				$reason = __( 'attribute used for variations', 'ubac-import' );
+				$reason = __( 'attribute used for variations', 'dahuconcept-product-import' );
 			} else {
-				$reason = __( 'hidden local attribute', 'ubac-import' );
+				$reason = __( 'hidden local attribute', 'dahuconcept-product-import' );
 			}
 
 			$protected[ self::key( $label ) ] = $reason;
@@ -205,7 +205,7 @@ final class Ubac_Import_Attributes {
 		foreach ( $parsed['ignored'] as $line ) {
 			$warnings[] = sprintf(
 				/* translators: 1: column name, 2: the line as typed. */
-				__( '%1$s: line without a ":" ignored — "%2$s"', 'ubac-import' ),
+				__( '%1$s: line without a ":" ignored — "%2$s"', 'dahuconcept-product-import' ),
 				Ubac_Import_Fields::COLUMN_ATTRIBUTES,
 				Ubac_Import_Sanitize::preview( $line )
 			);
@@ -223,7 +223,7 @@ final class Ubac_Import_Attributes {
 			if ( isset( $protected[ $key ] ) ) {
 				$warnings[] = sprintf(
 					/* translators: 1: column name, 2: attribute name, 3: why it is protected. */
-					__( '%1$s: "%2$s" is a %3$s — line ignored, the existing attribute is left untouched.', 'ubac-import' ),
+					__( '%1$s: "%2$s" is a %3$s — line ignored, the existing attribute is left untouched.', 'dahuconcept-product-import' ),
 					Ubac_Import_Fields::COLUMN_ATTRIBUTES,
 					$name,
 					$protected[ $key ]
@@ -241,7 +241,7 @@ final class Ubac_Import_Attributes {
 			if ( isset( $seen[ $key ] ) || isset( $seen[ $slug ] ) ) {
 				$warnings[] = sprintf(
 					/* translators: 1: column name, 2: attribute name. */
-					__( '%1$s: "%2$s" names the same attribute as an earlier line; only the first is kept.', 'ubac-import' ),
+					__( '%1$s: "%2$s" names the same attribute as an earlier line; only the first is kept.', 'dahuconcept-product-import' ),
 					Ubac_Import_Fields::COLUMN_ATTRIBUTES,
 					$name
 				);

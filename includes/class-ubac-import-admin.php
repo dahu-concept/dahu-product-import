@@ -67,8 +67,8 @@ final class Ubac_Import_Admin {
 	 */
 	public static function menu() {
 		add_management_page(
-			__( 'Product Import', 'ubac-import' ),
-			__( 'Product Import', 'ubac-import' ),
+			__( 'Product Import', 'dahuconcept-product-import' ),
+			__( 'Product Import', 'dahuconcept-product-import' ),
 			'manage_woocommerce',
 			UBAC_IMPORT_SLUG,
 			array( __CLASS__, 'render' )
@@ -83,16 +83,16 @@ final class Ubac_Import_Admin {
 	public static function render() {
 
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'You do not have permission to view this page.', 'ubac-import' ) );
+			wp_die( esc_html__( 'You do not have permission to view this page.', 'dahuconcept-product-import' ) );
 		}
 
 		$steps = array(
-			__( 'See which columns this site reads and writes.', 'ubac-import' )      => 'wp product-import check',
-			__( 'Write the spreadsheet from the site.', 'ubac-import' )               => 'wp product-import export',
-			__( 'Dry run: the report, and not one write.', 'ubac-import' )            => 'wp product-import import --file=<file>',
-			__( 'Import, once the report says what you expected.', 'ubac-import' )    => 'wp product-import import --file=<file> --execute',
-			__( 'Put it back.', 'ubac-import' )                                       => 'wp product-import rollback --file=<backup> --execute',
-			__( 'Find out why a field keeps being rewritten.', 'ubac-import' )         => 'wp product-import trace --ids=<ids>',
+			__( 'See which columns this site reads and writes.', 'dahuconcept-product-import' )      => 'wp product-import check',
+			__( 'Write the spreadsheet from the site.', 'dahuconcept-product-import' )               => 'wp product-import export',
+			__( 'Dry run: the report, and not one write.', 'dahuconcept-product-import' )            => 'wp product-import import --file=<file>',
+			__( 'Import, once the report says what you expected.', 'dahuconcept-product-import' )    => 'wp product-import import --file=<file> --execute',
+			__( 'Put it back.', 'dahuconcept-product-import' )                                       => 'wp product-import rollback --file=<backup> --execute',
+			__( 'Find out why a field keeps being rewritten.', 'dahuconcept-product-import' )         => 'wp product-import trace --ids=<ids>',
 		);
 
 		$fields   = Ubac_Import_Fields::all();
@@ -101,8 +101,8 @@ final class Ubac_Import_Admin {
 		?>
 		<div class="wrap ubac-ui">
 			<div class="ubac-ui-head">
-				<h1 class="ubac-ui-head__title"><?php esc_html_e( 'Product import', 'ubac-import' ); ?></h1>
-				<p class="ubac-ui-head__sub"><?php esc_html_e( 'Brings products in from a file, and says what it changed.', 'ubac-import' ); ?></p>
+				<h1 class="ubac-ui-head__title"><?php esc_html_e( 'Product import', 'dahuconcept-product-import' ); ?></h1>
+				<p class="ubac-ui-head__sub"><?php esc_html_e( 'Brings products in from a file, and says what it changed.', 'dahuconcept-product-import' ); ?></p>
 			</div>
 
 			<hr class="wp-header-end">
@@ -111,7 +111,7 @@ final class Ubac_Import_Admin {
 				<?php
 				printf(
 					/* translators: %s: site URL. */
-					esc_html__( 'This site: %s', 'ubac-import' ),
+					esc_html__( 'This site: %s', 'dahuconcept-product-import' ),
 					'<code>' . esc_html( home_url() ) . '</code>'
 				);
 				?>
@@ -119,7 +119,7 @@ final class Ubac_Import_Admin {
 
 			<div class="ubac-ui-card">
 			<div class="ubac-ui-card__head">
-				<h2 class="ubac-ui-card__title"><?php esc_html_e( 'The sequence', 'ubac-import' ); ?></h2>
+				<h2 class="ubac-ui-card__title"><?php esc_html_e( 'The sequence', 'dahuconcept-product-import' ); ?></h2>
 			</div>
 
 			<ol class="ubac-pi-steps">
@@ -134,19 +134,19 @@ final class Ubac_Import_Admin {
 
 			<div class="ubac-ui-card">
 			<div class="ubac-ui-card__head">
-				<h2 class="ubac-ui-card__title"><?php esc_html_e( 'The columns of your file', 'ubac-import' ); ?></h2>
+				<h2 class="ubac-ui-card__title"><?php esc_html_e( 'The columns of your file', 'dahuconcept-product-import' ); ?></h2>
 			</div>
 
 			<p class="ubac-pi-note">
-				<?php esc_html_e( 'These depend on what your theme or plugins have declared, so this list is the only accurate one for this site.', 'ubac-import' ); ?>
+				<?php esc_html_e( 'These depend on what your theme or plugins have declared, so this list is the only accurate one for this site.', 'dahuconcept-product-import' ); ?>
 			</p>
 
 			<table class="widefat striped ubac-pi-columns">
 				<thead>
 					<tr>
-						<th><?php esc_html_e( 'Column', 'ubac-import' ); ?></th>
-						<th><?php esc_html_e( 'Writes', 'ubac-import' ); ?></th>
-						<th><?php esc_html_e( 'Notes', 'ubac-import' ); ?></th>
+						<th><?php esc_html_e( 'Column', 'dahuconcept-product-import' ); ?></th>
+						<th><?php esc_html_e( 'Writes', 'dahuconcept-product-import' ); ?></th>
+						<th><?php esc_html_e( 'Notes', 'dahuconcept-product-import' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -160,9 +160,9 @@ final class Ubac_Import_Admin {
 							} elseif ( Ubac_Import_Fields::COLUMN_SKU === $column ) {
 								echo '<code>_sku</code>';
 							} elseif ( Ubac_Import_Fields::COLUMN_ATTRIBUTES === $column ) {
-								esc_html_e( 'local attributes', 'ubac-import' );
+								esc_html_e( 'local attributes', 'dahuconcept-product-import' );
 							} else {
-								esc_html_e( 'nothing', 'ubac-import' );
+								esc_html_e( 'nothing', 'dahuconcept-product-import' );
 							}
 							?>
 						</td>
@@ -173,26 +173,26 @@ final class Ubac_Import_Admin {
 								$notes = array( $fields[ $column ]['nature'] );
 
 								if ( $fields[ $column ]['required'] ) {
-									$notes[] = __( 'required', 'ubac-import' );
+									$notes[] = __( 'required', 'dahuconcept-product-import' );
 								}
 
 								if ( $fields[ $column ]['max_length'] ) {
 									/* translators: %d: maximum number of characters. */
-									$notes[] = sprintf( __( 'at most %d characters', 'ubac-import' ), $fields[ $column ]['max_length'] );
+									$notes[] = sprintf( __( 'at most %d characters', 'dahuconcept-product-import' ), $fields[ $column ]['max_length'] );
 								}
 
 								echo esc_html( implode( ', ', $notes ) );
 
 							} elseif ( Ubac_Import_Fields::COLUMN_ID === $column ) {
-								esc_html_e( 'matches the row to a product', 'ubac-import' );
+								esc_html_e( 'matches the row to a product', 'dahuconcept-product-import' );
 							} elseif ( Ubac_Import_Fields::COLUMN_SLUG === $column ) {
-								esc_html_e( 'confirms the id still means that product', 'ubac-import' );
+								esc_html_e( 'confirms the id still means that product', 'dahuconcept-product-import' );
 							} elseif ( Ubac_Import_Fields::COLUMN_SKU === $column ) {
-								esc_html_e( 'an empty cell never clears a SKU', 'ubac-import' );
+								esc_html_e( 'an empty cell never clears a SKU', 'dahuconcept-product-import' );
 							} elseif ( Ubac_Import_Fields::COLUMN_ATTRIBUTES === $column ) {
-								esc_html_e( 'visible, non-variation attributes only', 'ubac-import' );
+								esc_html_e( 'visible, non-variation attributes only', 'dahuconcept-product-import' );
 							} else {
-								esc_html_e( 'for information, never written', 'ubac-import' );
+								esc_html_e( 'for information, never written', 'dahuconcept-product-import' );
 							}
 							?>
 						</td>
@@ -206,7 +206,7 @@ final class Ubac_Import_Admin {
 					<?php
 					printf(
 						/* translators: %s: the filter name, in code tags. */
-						esc_html__( 'Only the three built-in fields are declared. To carry your theme\'s own product fields, add them with the %s filter — the plugin\'s README has an example.', 'ubac-import' ),
+						esc_html__( 'Only the three built-in fields are declared. To carry your theme\'s own product fields, add them with the %s filter — the plugin\'s README has an example.', 'dahuconcept-product-import' ),
 						'<code>ubac_import_fields</code>'
 					);
 					?>
@@ -216,11 +216,11 @@ final class Ubac_Import_Admin {
 
 			<div class="ubac-ui-card">
 			<div class="ubac-ui-card__head">
-				<h2 class="ubac-ui-card__title"><?php esc_html_e( 'What an import never touches', 'ubac-import' ); ?></h2>
+				<h2 class="ubac-ui-card__title"><?php esc_html_e( 'What an import never touches', 'dahuconcept-product-import' ); ?></h2>
 			</div>
 
 			<p class="ubac-import__note">
-				<?php esc_html_e( 'Prices, stock, weights, dimensions, categories, tags, variations, global attributes, orders and customers. It never creates or deletes a product either: a row naming an id this site does not have is reported and skipped.', 'ubac-import' ); ?>
+				<?php esc_html_e( 'Prices, stock, weights, dimensions, categories, tags, variations, global attributes, orders and customers. It never creates or deletes a product either: a row naming an id this site does not have is reported and skipped.', 'dahuconcept-product-import' ); ?>
 			</p>
 			</div>
 		</div>

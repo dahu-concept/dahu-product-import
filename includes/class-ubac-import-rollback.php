@@ -70,7 +70,7 @@ final class Ubac_Import_Rollback {
 			'errors'   => 0,
 		);
 
-		$prefix = $execute ? '' : '[' . __( 'dry run', 'ubac-import' ) . '] ';
+		$prefix = $execute ? '' : '[' . __( 'dry run', 'dahuconcept-product-import' ) . '] ';
 
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- local file, CLI.
 		$handle = fopen( $path, 'rb' );
@@ -78,7 +78,7 @@ final class Ubac_Import_Rollback {
 		if ( ! $handle ) {
 			flock( $lock, LOCK_UN );
 			/* translators: %s: file path. */
-			throw new RuntimeException( esc_html( sprintf( __( 'Cannot read: %s', 'ubac-import' ), $path ) ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot read: %s', 'dahuconcept-product-import' ), $path ) ) );
 		}
 
 		/*
@@ -129,7 +129,7 @@ final class Ubac_Import_Rollback {
 		$post  = get_post( $id );
 
 		if ( ! $post ) {
-			$this->out( $label . ': ' . __( 'not found', 'ubac-import' ), $stats, 'errors' );
+			$this->out( $label . ': ' . __( 'not found', 'dahuconcept-product-import' ), $stats, 'errors' );
 			return;
 		}
 
@@ -146,7 +146,7 @@ final class Ubac_Import_Rollback {
 				$this->out(
 					sprintf(
 						/* translators: 1: dry-run prefix, 2: product label, 3: field name. */
-						__( '%1$s%2$s: %3$s has changed since the import, not restored (--force to overwrite)', 'ubac-import' ),
+						__( '%1$s%2$s: %3$s has changed since the import, not restored (--force to overwrite)', 'dahuconcept-product-import' ),
 						$prefix,
 						$label,
 						$field
@@ -172,7 +172,7 @@ final class Ubac_Import_Rollback {
 				$this->out(
 					sprintf(
 						/* translators: 1: dry-run prefix, 2: product label, 3: meta key. */
-						__( '%1$s%2$s: %3$s has changed since the import, not restored (--force to overwrite)', 'ubac-import' ),
+						__( '%1$s%2$s: %3$s has changed since the import, not restored (--force to overwrite)', 'dahuconcept-product-import' ),
 						$prefix,
 						$label,
 						$key
@@ -274,7 +274,7 @@ final class Ubac_Import_Rollback {
 		$product = wc_get_product( $id );
 
 		if ( ! $product ) {
-			$this->out( $label . ': ' . __( 'WooCommerce cannot read it, SKU not restored', 'ubac-import' ), $stats, 'errors' );
+			$this->out( $label . ': ' . __( 'WooCommerce cannot read it, SKU not restored', 'dahuconcept-product-import' ), $stats, 'errors' );
 			return null;
 		}
 
@@ -284,7 +284,7 @@ final class Ubac_Import_Rollback {
 			$this->out(
 				sprintf(
 					/* translators: 1: dry-run prefix, 2: product label. */
-					__( '%1$s%2$s: the SKU has changed since the import, not restored (--force to overwrite)', 'ubac-import' ),
+					__( '%1$s%2$s: the SKU has changed since the import, not restored (--force to overwrite)', 'dahuconcept-product-import' ),
 					$prefix,
 					$label
 				),
@@ -302,7 +302,7 @@ final class Ubac_Import_Rollback {
 			$this->out(
 				sprintf(
 					/* translators: 1: dry-run prefix, 2: product label, 3: the product id now holding it. */
-					__( '%1$s%2$s: the pre-import SKU is now held by #%3$d, not restored', 'ubac-import' ),
+					__( '%1$s%2$s: the pre-import SKU is now held by #%3$d, not restored', 'dahuconcept-product-import' ),
 					$prefix,
 					$label,
 					$holder
@@ -338,7 +338,7 @@ final class Ubac_Import_Rollback {
 		$product = wc_get_product( $id );
 
 		if ( ! $product ) {
-			$this->out( $label . ': ' . __( 'WooCommerce cannot read it, attributes not restored', 'ubac-import' ), $stats, 'errors' );
+			$this->out( $label . ': ' . __( 'WooCommerce cannot read it, attributes not restored', 'dahuconcept-product-import' ), $stats, 'errors' );
 			return null;
 		}
 
@@ -349,7 +349,7 @@ final class Ubac_Import_Rollback {
 			$this->out(
 				sprintf(
 					/* translators: 1: dry-run prefix, 2: product label. */
-					__( '%1$s%2$s: the attributes have changed since the import, not restored (--force to overwrite)', 'ubac-import' ),
+					__( '%1$s%2$s: the attributes have changed since the import, not restored (--force to overwrite)', 'dahuconcept-product-import' ),
 					$prefix,
 					$label
 				),

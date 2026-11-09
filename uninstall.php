@@ -37,8 +37,15 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 function ubac_import_uninstall_site() {
 
 	delete_option( 'ubac_welcome_seen_ubac-import' );
+	// Les memes clefs sous le nouveau slug : elle est construite au runtime
+	// a partir du slug, donc elle a change avec lui. Sans ces trois lignes,
+	// une mise a jour depuis la version Ubac laisse des orphelines que plus
+	// rien ne nomme.
+	delete_option( 'ubac_welcome_seen_dahuconcept-product-import' );
 	delete_option( 'ubac_welcome_pending_ubac-import' );
+	delete_option( 'ubac_welcome_pending_dahuconcept-product-import' );
 	delete_option( 'ubac_welcome_tour_ubac-import' );
+	delete_option( 'ubac_welcome_tour_dahuconcept-product-import' );
 }
 
 if ( is_multisite() ) {

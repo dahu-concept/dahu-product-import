@@ -198,7 +198,7 @@ final class Ubac_Import_Fields {
 		if ( $rejected && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Deliberate, gated on WP_DEBUG_LOG just above.
 			error_log(
-				'[Ubac Product Import] these field declarations were dropped as unusable: '
+				'[DahuConcept Product Import] these field declarations were dropped as unusable: '
 				. implode( ', ', $rejected )
 			);
 		}

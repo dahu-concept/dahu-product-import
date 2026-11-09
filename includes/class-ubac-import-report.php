@@ -41,33 +41,33 @@ final class Ubac_Import_Report {
 		$out = array();
 
 		$out[] = '=== ' . ( $execute
-			? __( 'Product text import — REAL IMPORT', 'ubac-import' )
-			: __( 'Product text import — DRY RUN (nothing is written)', 'ubac-import' ) ) . ' ===';
+			? __( 'Product text import — REAL IMPORT', 'dahuconcept-product-import' )
+			: __( 'Product text import — DRY RUN (nothing is written)', 'dahuconcept-product-import' ) ) . ' ===';
 
-		$out[] = sprintf( '%-10s %s', __( 'Site', 'ubac-import' ), $plan['site'] );
-		$out[] = sprintf( '%-10s %s', __( 'File', 'ubac-import' ), $plan['file'] );
+		$out[] = sprintf( '%-10s %s', __( 'Site', 'dahuconcept-product-import' ), $plan['site'] );
+		$out[] = sprintf( '%-10s %s', __( 'File', 'dahuconcept-product-import' ), $plan['file'] );
 		$out[] = sprintf( '%-10s %s', 'SHA-256', $plan['sha256'] );
 		$out[] = sprintf(
 			'%-10s "%s"',
-			__( 'Separator', 'ubac-import' ),
-			"\t" === $plan['separator'] ? __( 'tab', 'ubac-import' ) : $plan['separator']
+			__( 'Separator', 'dahuconcept-product-import' ),
+			"\t" === $plan['separator'] ? __( 'tab', 'dahuconcept-product-import' ) : $plan['separator']
 		);
 		$out[] = sprintf(
 			'%-10s %s',
-			__( 'Key', 'ubac-import' ),
-			__( '+ added   ~ changed   - CLEARED (the cell is empty in the file)', 'ubac-import' )
+			__( 'Key', 'dahuconcept-product-import' ),
+			__( '+ added   ~ changed   - CLEARED (the cell is empty in the file)', 'dahuconcept-product-import' )
 		);
 		$out[] = sprintf(
 			'%-10s %s',
-			__( 'Previews', 'ubac-import' ),
-			__( '⏎ line break   ␣ non-breaking space   · invisible character   → tab', 'ubac-import' )
+			__( 'Previews', 'dahuconcept-product-import' ),
+			__( '⏎ line break   ␣ non-breaking space   · invisible character   → tab', 'dahuconcept-product-import' )
 		);
 
 		$out[] = '';
-		$out[] = '--- ' . __( 'Unrecognised columns (their contents are NOT imported)', 'ubac-import' );
+		$out[] = '--- ' . __( 'Unrecognised columns (their contents are NOT imported)', 'dahuconcept-product-import' );
 
 		if ( ! $plan['unknown'] ) {
-			$out[] = '  ' . __( 'none — every column in the header matches a declared field', 'ubac-import' );
+			$out[] = '  ' . __( 'none — every column in the header matches a declared field', 'dahuconcept-product-import' );
 		}
 
 		foreach ( $plan['unknown'] as $column ) {
@@ -98,7 +98,7 @@ final class Ubac_Import_Report {
 			$out[] = '';
 			$out[] = sprintf(
 				/* translators: 1: product id, 2: slug, 3: line number, 4: additions, 5: changes, 6: erasures. */
-				__( '--- Product #%1$s "%2$s" (line %3$d): %4$d added, %5$d changed, %6$d cleared', 'ubac-import' ),
+				__( '--- Product #%1$s "%2$s" (line %3$d): %4$d added, %5$d changed, %6$d cleared', 'dahuconcept-product-import' ),
 				$item['id'],
 				$item['slug'],
 				$item['line'],
@@ -115,7 +115,7 @@ final class Ubac_Import_Report {
 					$change['column'],
 					$change['before'],
 					'clear' === $change['action']
-						? '(' . __( 'CLEARED', 'ubac-import' ) . ')'
+						? '(' . __( 'CLEARED', 'dahuconcept-product-import' ) . ')'
 						: '"' . $change['after'] . '"'
 				);
 
@@ -130,10 +130,10 @@ final class Ubac_Import_Report {
 		}
 
 		$out[] = '';
-		$out[] = '--- ' . __( 'Erasures by column (a column emptied by mistake shows up here)', 'ubac-import' );
+		$out[] = '--- ' . __( 'Erasures by column (a column emptied by mistake shows up here)', 'dahuconcept-product-import' );
 
 		if ( ! $erasures ) {
-			$out[] = '  ' . __( 'none', 'ubac-import' );
+			$out[] = '  ' . __( 'none', 'dahuconcept-product-import' );
 		}
 
 		foreach ( $erasures as $column => $products ) {
@@ -141,22 +141,22 @@ final class Ubac_Import_Report {
 				'  %-24s %d %s: %s',
 				$column,
 				count( $products ),
-				_n( 'product', 'products', count( $products ), 'ubac-import' ),
+				_n( 'product', 'products', count( $products ), 'dahuconcept-product-import' ),
 				implode( ' ', $products )
 			);
 		}
 
 		$out[] = '';
-		$out[] = '--- ' . __( 'Rejected rows (nothing at all is written for these)', 'ubac-import' );
+		$out[] = '--- ' . __( 'Rejected rows (nothing at all is written for these)', 'dahuconcept-product-import' );
 
 		if ( ! $rejected ) {
-			$out[] = '  ' . __( 'none', 'ubac-import' );
+			$out[] = '  ' . __( 'none', 'dahuconcept-product-import' );
 		}
 
 		foreach ( $rejected as $item ) {
 			$out[] = sprintf(
 				/* translators: 1: line number, 2: product id, 3: slug, 4: the reasons. */
-				__( '  line %1$d — #%2$s "%3$s": %4$s', 'ubac-import' ),
+				__( '  line %1$d — #%2$s "%3$s": %4$s', 'dahuconcept-product-import' ),
 				$item['line'],
 				$item['id'],
 				$item['slug'],
@@ -167,14 +167,14 @@ final class Ubac_Import_Report {
 		$out[] = '';
 		$out[] = '--- ' . sprintf(
 			/* translators: %d: how many rows. */
-			__( 'Identical, nothing written: %d', 'ubac-import' ),
+			__( 'Identical, nothing written: %d', 'dahuconcept-product-import' ),
 			count( $identical )
 		) . ( $identical ? ' — ' . implode( ' ', $identical ) : '' );
 
 		$out[] = '';
 		$out[] = sprintf(
 			/* translators: 1: rows, 2: products to update, 3: identical, 4: rejected, 5: field erasures. */
-			__( '=== Summary: %1$d row(s); %2$d product(s) to update; %3$d identical; %4$d rejected; %5$d field erasure(s)', 'ubac-import' ),
+			__( '=== Summary: %1$d row(s); %2$d product(s) to update; %3$d identical; %4$d rejected; %5$d field erasure(s)', 'dahuconcept-product-import' ),
 			$plan['stats']['rows'],
 			$plan['stats']['update'],
 			$plan['stats']['identical'],

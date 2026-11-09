@@ -40,33 +40,33 @@ final class Ubac_Import_Workspace {
 			$home = (string) getenv( 'HOME' );
 
 			if ( '' === $home ) {
-				throw new RuntimeException( esc_html( __( 'The HOME variable is not set: pass --dir=<absolute path>.', 'ubac-import' ) ) );
+				throw new RuntimeException( esc_html( __( 'The HOME variable is not set: pass --dir=<absolute path>.', 'dahuconcept-product-import' ) ) );
 			}
 
 			$dir = rtrim( $home, '/' ) . '/ubac-import';
 		}
 
 		if ( 0 !== strpos( $dir, '/' ) || false !== strpos( $dir, '..' ) ) {
-			throw new RuntimeException( esc_html( __( 'The working directory must be an absolute path with no "..".', 'ubac-import' ) ) );
+			throw new RuntimeException( esc_html( __( 'The working directory must be an absolute path with no "..".', 'dahuconcept-product-import' ) ) );
 		}
 
 		if ( ! is_dir( $dir ) && ! wp_mkdir_p( $dir ) ) {
 			/* translators: %s: directory path. */
-			throw new RuntimeException( esc_html( sprintf( __( 'Cannot create the working directory: %s', 'ubac-import' ), $dir ) ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot create the working directory: %s', 'dahuconcept-product-import' ), $dir ) ) );
 		}
 
 		$real = realpath( $dir );
 
 		if ( false === $real || ! is_writable( $real ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable -- CLI tool writing outside the web root, where WP_Filesystem is not initialised and has no credentials to ask for.
 			/* translators: %s: directory path. */
-			throw new RuntimeException( esc_html( sprintf( __( 'The working directory is not writable: %s', 'ubac-import' ), $dir ) ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'The working directory is not writable: %s', 'dahuconcept-product-import' ), $dir ) ) );
 		}
 
 		foreach ( self::web_roots() as $root ) {
 			if ( 0 === strpos( trailingslashit( $real ), trailingslashit( $root ) ) ) {
 				throw new RuntimeException( esc_html( sprintf(
 						/* translators: %s: the web root that contains it. */
-						__( 'The working directory is inside a web root (%s): choose one outside it. The backups hold your product text.', 'ubac-import' ),
+						__( 'The working directory is inside a web root (%s): choose one outside it. The backups hold your product text.', 'dahuconcept-product-import' ),
 						$root
 					) ) );
 			}
@@ -154,7 +154,7 @@ final class Ubac_Import_Workspace {
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- CLI, outside the web root.
 		if ( false === file_put_contents( $tmp, $content, LOCK_EX ) || ! rename( $tmp, $path ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename, WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- CLI tool writing outside the web root, where WP_Filesystem is not initialised and has no credentials to ask for. The rename is the atomic commit of the temporary file.
 			/* translators: %s: file path. */
-			throw new RuntimeException( esc_html( sprintf( __( 'Cannot write: %s', 'ubac-import' ), $path ) ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot write: %s', 'dahuconcept-product-import' ), $path ) ) );
 		}
 
 		@chmod( $path, 0600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_chmod -- CLI tool writing outside the web root, where WP_Filesystem is not initialised and has no credentials to ask for.
@@ -174,14 +174,14 @@ final class Ubac_Import_Workspace {
 		$file = trim( (string) $file );
 
 		if ( '' === $file ) {
-			throw new RuntimeException( esc_html( __( 'No file name given.', 'ubac-import' ) ) );
+			throw new RuntimeException( esc_html( __( 'No file name given.', 'dahuconcept-product-import' ) ) );
 		}
 
 		$path = 0 === strpos( $file, '/' ) ? $file : $this->path( $file );
 
 		if ( ! is_file( $path ) || ! is_readable( $path ) ) {
 			/* translators: %s: file path. */
-			throw new RuntimeException( esc_html( sprintf( __( 'File not found: %s', 'ubac-import' ), $path ) ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'File not found: %s', 'dahuconcept-product-import' ), $path ) ) );
 		}
 
 		return $path;
@@ -229,7 +229,7 @@ final class Ubac_Import_Workspace {
 
 		throw new RuntimeException( esc_html( sprintf(
 				/* translators: %s: file name pattern. */
-				__( 'Could not reserve a file name for %s in the working directory.', 'ubac-import' ),
+				__( 'Could not reserve a file name for %s in the working directory.', 'dahuconcept-product-import' ),
 				sprintf( $template, self::stamp() )
 			) ) );
 	}
@@ -248,7 +248,7 @@ final class Ubac_Import_Workspace {
 
 		if ( ! $handle ) {
 			/* translators: %s: file path. */
-			throw new RuntimeException( esc_html( sprintf( __( 'Cannot open: %s', 'ubac-import' ), $this->path( $name ) ) ) );
+			throw new RuntimeException( esc_html( sprintf( __( 'Cannot open: %s', 'dahuconcept-product-import' ), $this->path( $name ) ) ) );
 		}
 
 		@chmod( $this->path( $name ), 0600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_chmod -- CLI tool writing outside the web root, where WP_Filesystem is not initialised and has no credentials to ask for.
@@ -271,7 +271,7 @@ final class Ubac_Import_Workspace {
 		$handle = $this->open_append( 'import.lock' );
 
 		if ( ! flock( $handle, LOCK_EX | LOCK_NB ) ) {
-			throw new RuntimeException( esc_html( __( 'An import or a rollback is already running (import.lock).', 'ubac-import' ) ) );
+			throw new RuntimeException( esc_html( __( 'An import or a rollback is already running (import.lock).', 'dahuconcept-product-import' ) ) );
 		}
 
 		return $handle;
