@@ -140,7 +140,7 @@ require_once UBAC_IMPORT_PATH . 'includes/ubac-welcome.php';
 register_activation_hook(
 	__FILE__,
 	static function () {
-		Ubac_Welcome::mark_activated( 'ubac-import' );
+		Ubac_Welcome::mark_activated( 'dahuconcept-product-import' );
 	}
 );
 
@@ -149,12 +149,12 @@ add_action(
 	static function () {
 		Ubac_Welcome::register(
 			array(
-				'slug'       => 'ubac-import',
+				'slug'       => 'dahuconcept-product-import',
 				'name'       => __( 'Product import', 'dahuconcept-product-import' ),
 				'tagline'    => __( 'Brings products in from a file, and says what it changed.', 'dahuconcept-product-import' ),
 				'file'       => UBAC_IMPORT_FILE,
 				'version'    => UBAC_IMPORT_VERSION,
-				'textdomain' => 'ubac-import',
+				'textdomain' => 'dahuconcept-product-import',
 				'mark'       => array(
 					'view'  => '0 0 112 112',
 					'paths' => array(
