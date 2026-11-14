@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       DahuConcept Product Import
+ * Plugin Name:       DahuConcept Product Import for WooCommerce
  * Description:       Edit WooCommerce product text in a spreadsheet and import it back: one row per product, a dry run that shows every change before anything is written, and a rollback.
  * Version:           1.1.3
  * Author:            Hugo Vial-Jaime
@@ -11,6 +11,7 @@
  * Domain Path:       /languages
  * Requires at least: 6.2
  * Requires PHP:      7.4
+ * Requires Plugins: woocommerce
  * WC requires at least: 7.0
  * WC tested up to:   11.2
  *

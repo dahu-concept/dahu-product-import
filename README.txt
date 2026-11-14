@@ -1,4 +1,4 @@
-=== DahuConcept Product Import ===
+=== DahuConcept Product Import for WooCommerce ===
 Contributors: dahuconcept
 Tags: bulk edit, products, csv, import, export
 Requires at least: 6.2
