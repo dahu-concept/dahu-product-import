@@ -1,6 +1,6 @@
 === DahuConcept Product Import for WooCommerce ===
 Contributors: dahuconcept
-Tags: bulk edit, products, csv, import, export
+Tags: bulk edit, woocommerce, csv, import, export
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
